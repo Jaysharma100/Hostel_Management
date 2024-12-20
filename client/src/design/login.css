@@ -1,0 +1,90 @@
+body{
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+}
+.top1 span{
+    font-size:6vh;
+    position: absolute;
+    top: 3vh;
+}
+.top1 p{
+    position: absolute;
+    top: 15vh;
+    color: red;
+    font-size: 3vh;
+}
+.login{
+    min-height: 50vh;
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 0.4vh solid black;
+    border-radius: 3vh;
+    position: relative;
+    top: 25vh;
+    box-shadow: 0.5vh 0.5vh 1vh rgb(61, 56, 56);
+}
+.loginselect {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: larger;
+    border-bottom: 0.8vh solid black;
+}
+
+.loginselect span{
+    margin: 0.5vh;
+    width: 10vw;
+    text-align: center;
+    border: 0.4vh solid black;
+    border-radius: 2vh;
+    padding: 1.3vh;
+}
+
+.loginselect span:hover{
+    background-color: rgb(204, 223, 144);
+}
+
+.logininput{
+    width: 32vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    left: 7.5vw;
+    font-size: large;
+}
+
+.logininput input{
+    height: 6vh;
+    width: 25vw;
+    border: 2px solid black;
+    border-radius: 1vh;
+    margin-top: 2px;
+    margin-bottom: 2vh;
+    box-shadow: 0vh 0vh 1vh black;
+    font-size: larger;
+}
+
+.login button:hover{
+    background-color: rgb(204, 223, 144);
+}
+
+.login button{
+    height: 7vh;
+    width: 15vw;
+    border: 2px solid black;
+    background-color: aliceblue;
+    border-radius: 2vh;
+    box-shadow: 0.5vh 0.5vh 1vh black;
+    font-size: 3vh;
+}
+
+.goto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

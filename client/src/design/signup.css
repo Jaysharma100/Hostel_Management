@@ -1,0 +1,157 @@
+body{
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.top span{
+    font-size:6vh;
+    position: absolute;
+    top: 3vh;
+}
+.top p{
+    position: absolute;
+    top: 8vh;
+    color: red;
+    font-size: 3vh;
+}
+.signup{
+    min-height: 75vh;
+    min-width: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border: 0.4vh solid black;
+    border-radius: 3vh;
+    position: relative;
+    top: 15vh;
+    box-shadow: 0.5vh 0.5vh 1vh rgb(61, 56, 56);
+}
+.signupselect {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: larger;
+    border-bottom: 0.8vh solid black;
+}
+
+.signupselect span{
+    margin: 0.5vh;
+    width: 10vw;
+    text-align: center;
+    border: 0.4vh solid black;
+    border-radius: 2vh;
+    padding: 1.3vh;
+}
+
+.signupselect span:hover{
+    background-color: rgb(204, 223, 144);
+}
+
+.signupinput{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: medium;
+    align-items: center;
+}
+
+input{
+    height: 5vh;
+    /* width: ; */
+    border: 2px solid black;
+    border-radius: 1vh;
+    margin-top: 2px;
+    margin-bottom: 2vh;
+    box-shadow: 0vh 0vh 5px black;
+    font-size: larger;
+}
+
+.signup button:hover{
+    background-color: rgb(204, 223, 144);
+}
+
+.signup button{
+    height: 9vh;
+    width: 15vw;
+    border: 2px solid black;
+    background-color: aliceblue;
+    border-radius: 2vh;
+    box-shadow: 0.5vh 0.5vh 1vh black;
+    font-size: large;
+}
+
+#signupdiffinput{
+    height: 3.5vh;
+    width: 15vw;
+    font-size:medium;
+}
+
+.signupbottom{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 40vw;
+}
+
+.nextpage{
+    display: flex;
+    flex-direction: column;
+    min-width: 15vw;
+    align-items: center;
+}
+.nextpage label{
+    border: 0.3vh solid black;
+    width: 8vw;
+    height: 3.5vh;
+    font-size: medium;
+    border-radius: 1vh;
+    background-color: aliceblue;
+    box-shadow: 0.5vh 0.5vh 1vh black;
+    overflow: hidden;
+}
+.nextpage button{
+    height: 4vh;
+    width: 7vw;
+    font-size: 2vh;
+}
+img{
+    height: 15vh;
+    width: 15vh;
+    border-radius: 50% 50%;
+}
+
+.insideavatardiv{
+    display: flex;
+    align-items: center;
+}
+
+.inuse{
+    background-color: greenyellow;
+}
+
+.input1{
+    display: flex;
+    flex-direction: column;
+    width: 60%
+}
+.nextinput{
+    display: flex;
+    flex-direction: column;
+    margin-top: 2vh;
+}
+.gotoback{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.gotoback button{
+    height: 6vh;
+    margin-top: 1.3vh;
+}
+#backbtn{
+    height: 4vh;
+    width: 12vw;
+}

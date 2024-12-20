@@ -1,0 +1,55 @@
+.navbar{
+    height: 8vh;
+    background-color: limegreen;
+    border-bottom: 1vh solid black;
+    /* border-top: 1vh solid rebeccapurple; */
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+}
+
+.logo {
+    width: 10%;
+    border: 1px solid red;
+}
+.routes{
+    width: 70%;
+    height: 8vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.linkto{
+    display: flex;
+    height: 70%;
+    width: 20%;
+    border: 1px solid rebeccapurple;
+    justify-content: center;
+    align-items: center;
+    background-color: honeydew;
+    border-radius: 2vh;
+    box-shadow: 0 0 10px black;
+}
+
+.link-normal{
+    text-Decoration:none;
+    color:inherit
+}
+
+.linkto:hover{
+    box-shadow: inset 0 -4px 1px rgb(25, 74, 25);
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.selected{
+    background-color: rgb(187, 222, 166);
+    color: black;
+    border:0.6vh solid rgba(0, 0, 0, 0.714);
+}
+
+.view{
+    width: 15%;
+    border: 1px solid rebeccapurple;
+}

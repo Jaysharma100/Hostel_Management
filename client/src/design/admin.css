@@ -1,0 +1,45 @@
+.admin{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit{
+    display: flex;
+    height: 15vh;
+    width: 80vw;
+    border: 3px solid black;
+    border-radius: 3vh;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.gotoedit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    width: 30vw;
+    font-size: 4vh;
+    border: 3px solid black;
+    border-radius: 5vh;
+    transition: width 0.2s ease, height 0.15s ease, border-radius 0.2s ease;
+    text-align: center;
+}
+
+.gotoedit:hover{
+    height: 12vh;
+    width: 32vw;
+    background-color: rgb(71, 144, 209);
+    color: aliceblue;
+    border-top-left-radius: 0vh;
+    border-bottom-right-radius: 0vh;
+}
+
+.logoutbtn{
+    position: absolute;
+    right: 3vh;
+    top: 2vh;
+    height: 7vh;
+    width: 10vh;
+}
