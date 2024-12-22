@@ -12,6 +12,7 @@
     border-radius: 3vh;
     align-items: center;
     justify-content: space-around;
+    margin-top: 4vh;
 }
 
 .gotoedit{
@@ -37,9 +38,91 @@
 }
 
 .logoutbtn{
-    position: absolute;
+    position: fixed;
     right: 3vh;
     top: 2vh;
     height: 7vh;
-    width: 10vh;
+    width: 10vw;
+}
+
+/* admin top css */
+.admintop{
+    display: flex;
+    width: 70vw;
+    justify-content: space-around;
+    align-items: center;
+    /* border: 3px solid black; */
+}
+
+.profile{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 8vh;
+    padding: 1vh;
+    border:3px solid black;
+    border-top: none;
+    border-bottom-right-radius: 4vh;
+    border-bottom-left-radius: 4vh;
+    transition: width 0.2s ease, height 0.3s ease, border-radius 0.2s ease;
+    font-size: 3vh;
+}
+
+.profile img{
+    width: 8vh;
+    height: 8vh;
+    border-radius: 50%;
+}
+
+.editopt{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: 2vh;
+}
+
+.profile:hover{
+    height: 12vh;
+    width: 20vw;
+}
+.hide{
+    display: none;
+}
+.profeditbtn{
+    margin-top: 1vh;
+}
+
+.adminpopcustom{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popupdetails img{
+    width: 16vh;
+    height: 16vh;
+    border-radius: 50%;
+}
+
+.avatarchange{
+    display: flex;
+    align-items: center;
+    gap: 2vh;
+}
+
+.avatarchange label{
+    display: flex;
+    height: 4vh;
+    width: 10vw;
+    /* background-color: rgb(206, 204, 204); */
+    border: 3px solid black;
+    border-radius: 3vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.addcolor{
+    background-color: lightgreen;
 }

@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import path from 'path'
 import dbconnect from './utils/db.js'
 import Authroutes from './routes/auth.js'
 
@@ -12,6 +13,9 @@ const PORT=process.env.PORT || 3000;
  
 app.use(express.json())
 app.use(cors())
+
+app.use('/avatars', express.static(path.join(process.cwd(), 'avatars')))
+
 app.use('/api/auth',Authroutes)
 
 app.get('/',(req,res)=>{

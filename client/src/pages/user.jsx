@@ -3,7 +3,7 @@ import Navbar from "../components/navbar"
 import PropTypes from "prop-types";
 
 const User = ({user}) => {
-  const {name,email,role,avatar,hostel}=user;
+  const {name,email,role,avatar,}=user;
   return (
     <>
     <Navbar selected="1"/>

@@ -22,13 +22,13 @@ const register=async(req,res)=>{
         role:role,
         password:hashpassword,
         avatar:'avatars/'+ req.file.filename,
-        hostel:hostel
        })
 
        await newuser.save()
 
        if(hostel){
         const newhostel=new hostelmodel({
+            name:hostel,
             email:email
         })
         await newhostel.save()
@@ -162,8 +162,77 @@ const findroom= async (req,res)=>{
   return res.status(200).json({message:"Room data found succesfully", details:roomdetails})
   }
   catch(err){
-    res.status(500).json({message:"Internal server error!"});
+    return res.status(500).json({message:"Internal server error!"});
   }
 }
 
-export {register,login,verify,addroomapi,findroom}
+const findhostel=async(req,res)=>{
+  const {email}=req.body;
+  const hostel=await hostelmodel.findOne({email});
+
+  if(!hostel){
+    return res.status(404).json({success:false,message:"Hostel not Found!"});
+  }
+
+  return res.status(200).json({success:true,hostel:hostel});
+
+}
+
+const updatehostel=async(req,res)=>{
+  const {name,email,description}=req.body;
+
+  try{
+    const hostel=await hostelmodel.findOne({email});
+    if(!hostel){
+      return res.status(404).json({success:false,message:"Hostel not Found!"});
+    }
+
+    if (name) hostel.name = name;
+    if (description) hostel.description = description;
+
+    await hostel.save();
+
+    return res.status(200).json({success:true,message:"Hostel details updated succesfully!"})
+  }
+  catch{
+    return res.status(500).json({ success: false, message: "Server error!", error: err.message });
+  }
+}
+
+const updateadminDetails = async (req, res) => {
+  const { email, name } = req.body;
+
+  try {
+      const user = await usermodel.findOne({ email });
+
+      if (!user) {
+          return res.status(404).json({ success: false, message: "User not found!" });
+      }
+
+      // Handle avatar change
+      if (req.file) {
+          // Remove old avatar if exists
+          if (user.avatar && fs.existsSync(user.avatar)) {
+              fs.unlinkSync(user.avatar);
+          }
+          // Assign new avatar path
+          user.avatar = `avatars/${req.file.filename}`;
+      }
+
+      // Handle name change
+      if (name) {
+          user.name = name;
+      }
+
+      await user.save();
+      return res.status(200).json({
+          success: true,
+          message: "User details updated successfully!",
+          user: { name: user.name, avatar: user.avatar }
+      });
+  } catch (err) {
+      return res.status(500).json({ success: false, message: "Server error!", error: err.message });
+  }
+};
+
+export {register,login,verify,addroomapi,findroom,findhostel,updatehostel,updateadminDetails}

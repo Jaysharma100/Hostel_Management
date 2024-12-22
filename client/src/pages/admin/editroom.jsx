@@ -19,7 +19,6 @@ const Editroom = ({user}) => {
   const {email}=user;
   const [error,seterror]=useState(null);
   const [error2,seterror2]=useState(null);
-  const [details,setdetails]=useState(null);
 
   const [newroom,setnewroom]=useState("");
   const [newfloor,setnewfloor]=useState("");
@@ -114,7 +113,6 @@ const Editroom = ({user}) => {
   
     if (response.status === 200) {
       console.log(data.details)
-      setdetails(data.details);
       setnewroom(data.details.number);
       setnewfloor(findfloor);
       setnewcap(data.details.capacity);
@@ -288,11 +286,10 @@ const Editroom = ({user}) => {
 
       {showpopup2 && (
         <div className="popup">
-          <div className="popup2top">
+          <div className="popuptop">
             <h2>Edit Details</h2>
             <button
-              className="edit2btn edit2btnext"
-              id="extadd2btn"
+              className="edit2btn edit2btnext extadd2btn"
               onClick={() => setshowpopup2(false)}
             >
               X

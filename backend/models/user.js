@@ -23,10 +23,6 @@ const userschema= new mongoose.Schema({
     avatar:{
         type:String,
         required:true
-    },
-    hostel:{
-        type:String,
-        required:false
     }
 },{timestamps:true})
 

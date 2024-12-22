@@ -11,7 +11,6 @@ const Privateroute = ({ path, children }) => {
   useEffect(() => {
     const verifyToken = async () => {
       const token = localStorage.getItem("verification_token");
-      console.log(token);
       if (!token) {
         // If no token, check if the path is login. If it's login, allow access.
         if (path === "/login" || path==="/signup") {
