@@ -34,10 +34,27 @@ const Privateroute = ({ path, children }) => {
 
         if (response.status === 200) {
           const data = await response.json();
-          setuser(data.user);
+          if(!data.redirect){
+          const res=await fetch("http://localhost:4000/api/auth/finduser",{
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email:data.email}),
+          })
+
+          const datauser=await res.json();
+          if(res.status===200){
+            setuser(datauser.user);
+          }
+          else{
+            data.redirect="/login";
+          }
+          }
           if (!data.redirect) {
             setIsAuthorized(true);
-          } else {
+          } 
+          else {
             navigate(data.redirect, { replace: true });
           }
         } else {
@@ -63,7 +80,7 @@ const Privateroute = ({ path, children }) => {
     return <div>Loading...</div>;
   }
 
-  return isAuthorized ? React.cloneElement(children, { user }) : null;
+  return isAuthorized ? ((user || path==="/login" || path==="/signup")? React.cloneElement(children, { user }): "loading") : null;
 };
 
 Privateroute.propTypes = {

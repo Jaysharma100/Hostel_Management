@@ -1,5 +1,5 @@
 import express from 'express'
-import {register,login,verify, addroomapi, findroom, findhostel, updatehostel, updateadminDetails } from '../controllers/Auth.js'
+import {register,login,verify, addroomapi, findroom, findhostel, updatehostel, updateprofile, finduser } from '../controllers/Auth.js'
 import upload from '../utils/multer.js'
 
 const Authroutes=express.Router()
@@ -11,6 +11,8 @@ Authroutes.post('/addrooms',addroomapi)
 Authroutes.post('/findroom',findroom)
 Authroutes.post('/findhostel',findhostel)
 Authroutes.patch('/updatehostel',updatehostel)
-Authroutes.patch('/updateavatar',updateadminDetails);
+Authroutes.patch('/updateprofile',upload.single('avatar'),updateprofile);
+Authroutes.post('/finduser',finduser)
+
 
 export default Authroutes

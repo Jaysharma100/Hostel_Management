@@ -11,13 +11,18 @@ const Admin = ({user}) => {
   const [admin_popup1,setadmin_popup1]=useState(0);
   const [admin_popup2,setadmin_popup2]=useState(0);
   const [imgchange,setimgchange]=useState(null);
-  const [wantto1,setwantto]=useState(0);
-  const {name,email,password,avatar}=user;
-
+  const [wantto1,setwantto1]=useState(0);
+  const {name,email,avatar}=user;
+  
+  //new hostel details
   const [hostelname,sethostelname]=useState("");
   const [floors,setfloors]=useState([]);
   const [description,setdescription]=useState("");
-
+  
+  //original hostel details
+  const [oghostelname,setoghostelname]=useState("");
+  const [ogdescription,setogdescription]=useState("");
+  
   useEffect(() => {
     const handleHD=async()=>{
       const body={
@@ -38,6 +43,8 @@ const Admin = ({user}) => {
           sethostelname(data.hostel.name);
           setfloors(data.hostel.floors);
           setdescription(data.hostel.description);
+          setoghostelname(data.hostel.name);
+          setogdescription(data.hostel.description);
         }
         else{
           seterror(data.message);
@@ -50,6 +57,17 @@ const Admin = ({user}) => {
       handleHD();
     }
   }, [user,email]);
+
+  //original profile details
+  const [ogname,setogname]=useState(name);
+  const [ogemail,setogemail]=useState(email);
+  const [ogavatar,setogavatar]=useState(avatar);
+  
+
+  //new profile details
+  const [newname,setnewname]=useState(ogname);
+  const [newemail,setnewemail]=useState(ogemail);
+  const [confirm,setconfirm]=useState("");
 
   if (!user) {
     return <div>Loading...</div>;
@@ -78,7 +96,8 @@ const Admin = ({user}) => {
       const data=await response.json();
 
       if(response.status===200){
-        console.log(data);
+        setoghostelname(hostelname);
+        setogdescription(description);
       }
       else{
         seterror(data.message);
@@ -88,27 +107,62 @@ const Admin = ({user}) => {
     }
   }
 
-  const ifpassmatch= async()=>{
-    const body={
-      email:email,
-      password:password
+  const updateprofile=async()=>{
+    
+    if((ogname!==newname || ogemail!==newemail) && confirm!=="CONFIRM"){
+      setconfirm("");
+      seterror("Cannot Proceed! Type CONFIRM correctly");
+      return;
     }
 
-    const response=await fetch(`http://localhost:4000/api/auth/updatehostel`,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body)
-    })
+    const bodydata=new FormData();
+    if(newname)
+    bodydata.append('name',newname);
+    if(ogemail){
+    bodydata.append('email',ogemail);
+    }
+    if(newemail)
+    bodydata.append('newemail',newemail);
+    if(imgchange)
+    bodydata.append('avatar',imgchange);
 
-    const data=await response.json();
-    if(response.status==200){
-      console.log(data);
+    try{
+      const response=await fetch(`http://localhost:4000/api/auth/updateprofile`,{
+        method: 'PATCH',
+        body:bodydata
+      })
+
+      const data=await response.json();
+      if(response.status===200){
+        console.log(data);
+        setogname(data.user.name);
+        setogemail(data.user.email);
+        setogavatar(data.user.avatar);
+        setimgchange(null);
+        seterror("");
+        setconfirm("");
+      }
+      else{
+        seterror(data.message);
+      }
     }
-    else{
-      seterror(data.message);
+    catch(err){
+      seterror(err.message || "An unexpected error occurred");
     }
+  }
+
+  const handlegoback=(e)=>{
+    if(e===1){
+      setadmin_popup1(0);
+      sethostelname(oghostelname);
+      setdescription(ogdescription);
+    }
+    if(e===2){
+      setadmin_popup2(0);
+      setnewname(ogname);
+      setnewemail(ogemail);
+    }
+    seterror("");
   }
 
   return (
@@ -121,14 +175,13 @@ const Admin = ({user}) => {
           <button className={hide2?"edit2btn profeditbtn hide":"edit2btn profeditbtn"} onClick={()=>setadmin_popup1(1)}>Hostel Details</button>
         </div>
         <div className="profile" onMouseEnter={()=>sethide1(0)} onMouseLeave={()=>sethide1(1)}>
-          <img className="avatarimg" src={`http://localhost:4000/${avatar}`} alt="" />
+          <img className="avatarimg" src={`http://localhost:4000/${ogavatar}`} alt="" />
           <div className="editopt">
-            <span>{name}</span>
+            <span>{ogname}</span>
             <button className={hide1?"edit2btn edit2btnext profeditbtn hide":"edit2btn profeditbtn edit2btnext"} onClick={()=>setadmin_popup2(1)} >Edit Profile</button>
           </div>
         </div>
       </div>
-      <span>{error}</span>
       <div className="edit">
         <div className="editrooms gotoedit" onClick={()=>navigate("/editroom")}>
           <span>Edit Hostel rooms</span>
@@ -149,7 +202,7 @@ const Admin = ({user}) => {
             <h2>Hostel Details</h2>
             <button
               className="edit2btn edit2btnext extadd2btn"
-              onClick={() => setadmin_popup1(0)}
+              onClick={() =>{handlegoback(1)}}
             >
               X
             </button>
@@ -158,9 +211,10 @@ const Admin = ({user}) => {
             <span>Hostel Name:</span>
             <input type="text" value={hostelname} onChange={(e)=>sethostelname(e.target.value)}/>
             <span>Description:</span>
-            <textarea className="description" value={description} onChange={(e)=>setdescription(e.target.value)}>hii</textarea>
+            <textarea className="description" value={description} onChange={(e)=>setdescription(e.target.value)}></textarea>
+            {(oghostelname!==hostelname || ogdescription!==description) && <button className="edit2btn edit2btnext" onClick={handleupdateHD}>Save Changes</button>}
+            <span>{error? error.toString():""}</span>
           </div>
-          <button className="edit2btn edit2btnext" onClick={handleupdateHD}>Save Changes</button>
         </div>
       </>
       :
@@ -175,27 +229,38 @@ const Admin = ({user}) => {
             <h2>Profile Details</h2>
             <button
               className="edit2btn edit2btnext extadd2btn"
-              onClick={() => setadmin_popup2(0)}
+              onClick={() =>{handlegoback(2)}}
             >
               X
             </button>
           </div>
           <div className="popupdetails adminpopcustom">
             <div className="avatarchange">
-              <img className="avatarimg" src={`http://localhost:4000/${avatar}`} alt="" />
-              <button className="edit2btn edit2btnext">Edit</button>
+              <img className="avatarimg" src={`http://localhost:4000/${ogavatar}`} alt="" />
+              <button className="edit2btn edit2btnext" onClick={()=>setwantto1(1)}>Edit</button>
             </div>
-            <div className={`${wantto1?"hide":""} avatarchange`}>
+            <div className={`${wantto1?"":"hide"} avatarchange`}>
+              <button className="edit2btn edit2btnext" onClick={()=>{
+                setwantto1(0);
+                setimgchange(null);
+              }}>
+                Back
+              </button>
               <label htmlFor="newavatar" className={imgchange?"addcolor":""}>Choose</label>
               <input type="file" id="newavatar" className="hide" onChange={(e)=>{setimgchange(e.target.files[0])}}/>
-              <button className="edit2btn edit2btnext">Change!</button>
+              {imgchange && <span>✔️</span> }
             </div>
-            <span>{imgchange?`${imgchange}`:null}</span>
             <span>Name:</span>
-            <input type="text" value={hostelname} onChange={(e)=>sethostelname(e.target.value)}/>
+            <input type="text" value={newname} onChange={(e)=>setnewname(e.target.value)}/>
             <span>Email ID:</span>
-            <input type="text" value={hostelname} onChange={(e)=>sethostelname(e.target.value)}/>
-            <button className="edit2btn edit2btnext" onClick={handleupdateHD}>Save Changes</button>
+            <input type="text" value={newemail} onChange={(e)=>setnewemail(e.target.value)}/>
+            {(ogname!==newname || ogemail!==newemail)
+             && <>
+              <span>{`Type "CONFIRM"`}</span>
+              <input type="text" value={confirm} onChange={(e)=>setconfirm(e.target.value)} />
+             </>}
+            {(ogname!==newname || ogemail!==newemail || imgchange) && <button className="edit2btn edit2btnext" onClick={updateprofile}>Save Changes</button>}
+            <span>{error? error.toString():""}</span>
           </div>
         </div>
       </>

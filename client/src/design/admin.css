@@ -74,6 +74,15 @@
     border-radius: 50%;
 }
 
+.description{
+    margin-bottom: 3vh;
+    max-width: 85%;
+    min-width: 85%;
+    max-height: 25vh;
+    min-height: 15vh;
+    font-size: 3vh;
+}
+
 .editopt{
     display: flex;
     flex-direction: column;
@@ -86,9 +95,6 @@
 .profile:hover{
     height: 12vh;
     width: 20vw;
-}
-.hide{
-    display: none;
 }
 .profeditbtn{
     margin-top: 1vh;
@@ -124,5 +130,11 @@
 }
 
 .addcolor{
-    background-color: lightgreen;
+    background-color: rgb(71, 144, 209);
+    color: aliceblue;
+}
+
+
+.hide{
+    display: none;
 }
