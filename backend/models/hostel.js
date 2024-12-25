@@ -50,6 +50,6 @@ const hostelschema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-const hostelmodel = projectdb.model('hostels', hostelschema);
+const hostelmodel= projectdb.model('hostels', hostelschema);
 
 export default hostelmodel;

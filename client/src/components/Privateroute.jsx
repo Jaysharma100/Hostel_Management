@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import Loader from "./loader.jsx";
 
 const Privateroute = ({ path, children }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -77,7 +78,7 @@ const Privateroute = ({ path, children }) => {
   }, [path, navigate]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader/>
   }
 
   return isAuthorized ? ((user || path==="/login" || path==="/signup")? React.cloneElement(children, { user }): "loading") : null;

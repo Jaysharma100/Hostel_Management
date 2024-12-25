@@ -17,6 +17,7 @@ const Editroom = ({user}) => {
   const [showPopup, setShowPopup] = useState(false);
   const [showpopup2,setshowpopup2]= useState(false);
   const {email}=user;
+  const [ogemail,setogemail]=useState(email);
   const [error,seterror]=useState(null);
   const [error2,seterror2]=useState(null);
 
@@ -123,6 +124,40 @@ const Editroom = ({user}) => {
       seterror2(data.message);
     }
   };
+
+  const handleroomupdate=async()=>{
+    const bodydata = {
+      email: ogemail,
+      ogfloor: findfloor,
+      ogroom: findroom,
+      newfloor,
+      newroom,
+      capacity: newcap,
+      hostelers,
+    };
+  
+    try{
+      const response=await fetch(`http://localhost:4000/api/auth/updateroom`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bodydata),
+      })
+
+      const data=await response.json();
+      if(response.status===200){
+        console.log(data);
+        seterror("");
+      }
+      else{
+        seterror(data.message);
+      }
+    }
+    catch(err){
+      seterror(err.message);
+    }
+  }
   
 
   return (
@@ -386,16 +421,12 @@ const Editroom = ({user}) => {
                   );
                   return;
                 }
-                console.log("Updated Details:", {
-                  newroom,
-                  newfloor,
-                  newcap,
-                  hostelers,
-                });
+                handleroomupdate();
               }}
             >
               Save Changes
             </button>
+            <span>{error}</span>
           </div>
         </div>
       )}

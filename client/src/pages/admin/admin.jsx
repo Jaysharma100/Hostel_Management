@@ -12,16 +12,23 @@ const Admin = ({user}) => {
   const [admin_popup2,setadmin_popup2]=useState(0);
   const [imgchange,setimgchange]=useState(null);
   const [wantto1,setwantto1]=useState(0);
+  const [isopen,setisopen]=useState(0);
   const {name,email,avatar}=user;
   
   //new hostel details
   const [hostelname,sethostelname]=useState("");
   const [floors,setfloors]=useState([]);
   const [description,setdescription]=useState("");
+  const [floornumber,setfloornumber]=useState("1");
   
   //original hostel details
   const [oghostelname,setoghostelname]=useState("");
   const [ogdescription,setogdescription]=useState("");
+
+  //rooms
+  const [rooms,setrooms]=useState(null);
+  const [areHostelersVisible, setAreHostelersVisible] = useState({});
+
   
   useEffect(() => {
     const handleHD=async()=>{
@@ -56,8 +63,18 @@ const Admin = ({user}) => {
     if (user) {
       handleHD();
     }
+
   }, [user,email]);
 
+  useEffect(() => {
+    if (floors && Object.keys(floors).length > 0) {
+      const firstFloor = Object.keys(floors)[0];
+      setfloornumber(firstFloor);
+      setrooms(floors[firstFloor]);
+      handleselect(firstFloor); // Ensure it runs even if dropdown is not interacted with
+    }
+  }, [floors]);
+  
   //original profile details
   const [ogname,setogname]=useState(name);
   const [ogemail,setogemail]=useState(email);
@@ -72,6 +89,13 @@ const Admin = ({user}) => {
   if (!user) {
     return <div>Loading...</div>;
   }
+
+  const handleViewHostelers = (roomNumber) => {
+    setAreHostelersVisible(prevState => ({
+      ...prevState,
+      [roomNumber]: !prevState[roomNumber],  // Toggle visibility for the specific room
+    }));
+  };
 
   const handlelogout=()=>{
     localStorage.removeItem('verification_token');
@@ -165,6 +189,12 @@ const Admin = ({user}) => {
     seterror("");
   }
 
+  const handleselect=(e)=>{
+    setfloornumber(e);
+    setrooms(floors[e]);
+    setisopen(0);
+  }
+
   return (
     <>
     <div className={`main ${(admin_popup1 || admin_popup2) ? "blurred" : ""}`}>
@@ -191,7 +221,84 @@ const Admin = ({user}) => {
         </div>
       </div>
       <div className="details">
-
+        <div className="filter">
+          <div className="dropdown-header" onClick={()=>setisopen(!isopen)} style={{ cursor: "pointer", display: "flex", alignItems: "center" }}>
+            <span>Floor</span>
+            <span style={{ marginLeft: "10px" }}>{floornumber}</span>
+          </div>
+          {isopen==1 && (
+            <div className="dropdown-content">
+              {Object.keys(floors).map((floorNumber, index) => (
+                <div
+                  key={index}
+                  className="dropdown-item"
+                  style={{
+                    padding: "10px",
+                    border: "1px solid #ddd",
+                    borderRadius: "4px",
+                    margin: "5px 0",
+                    textAlign: "center",
+                    backgroundColor: "#f1f1f1",
+                  }}
+                  onClick={()=>handleselect(floorNumber)}
+                >
+                  Floor {floorNumber}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        {rooms &&
+        <div className="rooms">
+          {rooms && rooms.map((room, index) => (
+            <div
+              key={index}
+              className="room-item"
+              style={{
+                padding: "10px",
+                border: "1px solid #ddd",
+                borderRadius: "4px",
+                margin: "5px 0",
+                backgroundColor: "#e8f4f8",
+              }}
+            >
+              <div className="roomtop">
+                <div className="put">
+                  <span>Room: </span>
+                  <span>{room.number}</span>
+                </div>
+                <div className="put">
+                  <span>Capacity</span>
+                  <span>{room.capacity}</span>
+                </div>
+                <button 
+                  className="edit2btn edit2btnext" 
+                  onClick={() => handleViewHostelers(room.number)}
+                >
+                  {areHostelersVisible[room.number] ? "Close" : "View Hostelers"}
+                </button>
+              </div>
+              {room.hostelers.length > 0 ? (
+                <div className="hostelers">
+                  {areHostelersVisible[room.number] && (
+                    room.hostelers.map((hosteler, index) => (
+                      <div className="hosteler" key={index}>
+                        <span>{index+1}</span>
+                        <span>{hosteler.email}</span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              ) : (
+                <span style={{
+                  padding: "10px",
+                  margin: "5vh 0",
+                }}>No hostelers</span>
+              )}
+            </div>
+          ))}
+        </div>
+        }
       </div>
     </div>
 

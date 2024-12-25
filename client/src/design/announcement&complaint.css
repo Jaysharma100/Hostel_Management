@@ -1,0 +1,29 @@
+.anncomp{
+    display: flex;
+    flex-direction: column;
+}
+
+.selecttop{
+    display: flex;
+    gap: 4vh;
+}
+.selectone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 7vh;
+    width: 20vw;
+    border: 3px groove black;
+    border-radius: 4vh;
+}
+
+.backbtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 3vh;
+    top: 2vh;
+    background-color: rgb(86, 136, 137);
+    color: aliceblue;
+}

@@ -251,4 +251,87 @@ const updateprofile = async (req, res) => {
   }
 };
 
-export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile}
+const updateroom = async (req, res) => {
+  
+  const { email, ogfloor, ogroom, newfloor, newroom, capacity, hostelers } = req.body;
+
+  try {
+    
+    const hostel = await hostelmodel.findOne({ email });
+    if (!hostel) {
+      return res.status(404).json({ message: "Hostel not found" });
+    }
+
+    if (!hostel.floors.has(ogfloor)) {
+      return res.status(404).json({ message: "Original floor not found" });
+    }
+
+    const ogFloorRooms = hostel.floors.get(ogfloor);
+
+    const ogRoomIndex = ogFloorRooms.findIndex(r => r.number === parseInt(ogroom));
+    if (ogRoomIndex === -1) {
+      return res.status(404).json({ message: "Original room not found" });
+    }
+
+    const currentRoom = ogFloorRooms[ogRoomIndex];  //current room on og floor
+
+    if (ogfloor !== newfloor) {             //the case when newfloor does not matches with ogfloor,
+      if (!hostel.floors.has(newfloor)) {     //have to move that room to a new floor;
+        hostel.floors.set(newfloor, []);
+      }
+
+      const newFloorRooms = hostel.floors.get(newfloor);
+
+      const newRoomExists = newFloorRooms.some(r => r.number === parseInt(ogroom));  //the case when room with that ogroom no. already exist. nothing can be done now
+      if (newRoomExists) {
+        return res.status(400).json({ message: "Room number already exists on the new floor" });
+      }
+
+      newFloorRooms.push({
+        number: newroom,
+        capacity: capacity || currentRoom.capacity,
+        hostelers: hostelers || currentRoom.hostelers,
+      });
+
+      ogFloorRooms.splice(ogRoomIndex, 1);
+
+      hostel.floors.set(ogfloor, ogFloorRooms);
+      hostel.floors.set(newfloor, newFloorRooms);
+    } else {
+
+      //the case when that room floor was not changed
+
+      currentRoom.number = newroom || currentRoom.number;
+      currentRoom.capacity = capacity || currentRoom.capacity;
+
+      if (hostelers) {
+        const newHostelerEmails = hostelers.map(h => h.email);
+
+        currentRoom.hostelers = currentRoom.hostelers.filter(h =>
+          newHostelerEmails.includes(h.email)
+        );
+        const existingEmails = currentRoom.hostelers.map(h => h.email);
+        const newHostelers = hostelers.filter(
+          h => !existingEmails.includes(h.email)
+        );
+
+        currentRoom.hostelers.push(...newHostelers);
+      }
+
+      ogFloorRooms[ogRoomIndex] = currentRoom;
+
+      hostel.floors.set(ogfloor, ogFloorRooms);
+    }
+    await hostel.save();
+
+    return res.status(200).json({
+      message: "Room updated successfully",
+      updatedRoom: currentRoom,
+    });
+  } catch (error) {
+    console.error("Error updating room:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom}
