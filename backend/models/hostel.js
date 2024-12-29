@@ -6,7 +6,6 @@ const roomschema = new mongoose.Schema({
     number: {
       type: Number,
       required: true,
-      unique: true,
     },
     capacity: {
       type: Number,
@@ -39,9 +38,13 @@ const hostelschema = new mongoose.Schema({
       default:""
     },
     email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true
+    },
+    location:{
+      type:String,
+      default:""
     },
     floors: {
         type: Map,
@@ -49,6 +52,8 @@ const hostelschema = new mongoose.Schema({
         default:{}
     }
 }, { timestamps: true });
+
+hostelschema.index({ 'floors.floorNumber': 1 }, { unique: true, sparse: true });
 
 const hostelmodel= projectdb.model('hostels', hostelschema);
 

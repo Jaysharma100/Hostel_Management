@@ -1,19 +1,20 @@
 import usermodel from "../models/user.js"
 import hostelmodel from "../models/hostel.js"
+import annmodel from "../models/announcement.js"
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
 import fs from "fs"
-import { log } from "console"
+import complaint_replymodel from "../models/complaint.js"
 
 
 const register=async(req,res)=>{
     try{
-       const {name,email,role,password,hostel}=req.body
-       console.log(req.file);
+       const {name,email,role,password,hostel,mobile,location}=req.body
        const userexist=await usermodel.findOne({email});
        if(userexist){
-        return res.status(401).send({suceess:false,message:"user already exist!"})
-       }
+         console.log("hii")
+         return res.status(401).send({suceess:false,message:"user already exist!"})
+        }
 
        const hashpassword=await bcryptjs.hashSync(password,10)
 
@@ -21,6 +22,7 @@ const register=async(req,res)=>{
         name:name,
         email:email,
         role:role,
+        mobile:mobile,
         password:hashpassword,
         avatar:'avatars/'+ req.file.filename,
        })
@@ -30,7 +32,11 @@ const register=async(req,res)=>{
        if(hostel){
         const newhostel=new hostelmodel({
             name:hostel,
-            email:email
+            email:email,
+            location:location,
+            floors:{
+              "1":[]
+            }
         })
         await newhostel.save()
        }
@@ -334,4 +340,117 @@ const updateroom = async (req, res) => {
   }
 };
 
-export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom}
+const announcement = async (req, res) => {
+  const { email, message } = req.body;
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
+  try {
+    let annDoc = await annmodel.findOne({ email });
+
+    if (!annDoc) {
+      if (message) {
+        annDoc = new annmodel({ email, messages: [{ text: message}] });
+        await annDoc.save();
+        return res.status(200).json({ announcements: annDoc.messages });
+      } else {
+        return res.status(404).json({ message: "No announcements found for this email" });
+      }
+    }
+
+    if (message) {
+      annDoc.messages.push({ text: message });
+      await annDoc.save();
+    }
+
+    const sortedMessages = annDoc.messages.sort((a, b) => b.createdAt - a.createdAt); // Sort in descending order
+    res.status(200).json({ announcements: sortedMessages });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "An error occurred", error: err });
+  }
+};
+
+const complaints_reply=async(req,res)=>{
+  try{
+    const {To,from,message}=req.body;
+    if(!To){
+      return res.staus(400).json({message:"admin's email is required"});
+    }
+    const comp_reply=await complaint_replymodel.findOne({To});
+    
+    if(!comp_reply){
+      return res.status(404).json({ message: "No Complaints found for You!" });
+    }
+    
+    if(!from && !message){
+      return res.status(200).json({suceess:true,comp_reply:comp_reply.messages});
+    }
+    else if(!from){
+      return res.staus(400).json({message:"From: email was not found"});
+    }
+    else if(!message){
+      return res.staus(400).json({message:"Message to be sent was not found"});
+    }
+    else{
+      
+      const hosteler = comp_reply.messages.find((hosteler) =>
+        hosteler.email === from
+      );
+      
+      if (!hosteler) {
+        throw new Error(`Hosteler with email ${from} not found.`);
+      }
+      
+      hosteler.messages.push({
+        text: message,
+        createdAt: new Date(),
+      });
+    
+    await comp_reply.save();
+    return res.status(200).json({
+      success: true,
+      message: "Message added successfully.",
+      comp_reply:comp_reply.messages,
+    });
+  }
+  }
+  catch(err){
+    res.status(500).json({ message: "An error occurred", error: err });
+  }
+}
+
+const hostelfetch=async(req,res)=>{
+  try {
+    const hostels = await hostelmodel.find();
+
+    const result = [];
+
+    for (const hostel of hostels) {
+      const admin = await usermodel.findOne({ email: hostel.email });
+
+      if (admin) {
+        result.push({
+          hostel: {
+            name: hostel.name,
+            description: hostel.description,
+            floors: hostel.floors,
+          },
+          admin: {
+            name: admin.name,
+            email: admin.email,
+            mobile: admin.mobile,
+          },
+        });
+      }
+    }
+
+    res.status(200).json({ hostels: result });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "An error occurred while fetching hostels." });
+  }
+}
+
+export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom,announcement,complaints_reply,hostelfetch}

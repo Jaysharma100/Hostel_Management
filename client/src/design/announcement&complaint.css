@@ -1,29 +1,227 @@
-.anncomp{
-    display: flex;
-    flex-direction: column;
+.anncomp {
+  display: flex;
+  flex-direction: column;
+}
+  
+.selecttop {
+  display: flex;
+  gap: 4vh;
+  height: 10vh;
+  /* border-bottom: 3px solid black; */
+  margin-bottom: 2vh;
 }
 
-.selecttop{
-    display: flex;
-    gap: 4vh;
-}
-.selectone{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 7vh;
-    width: 20vw;
-    border: 3px groove black;
-    border-radius: 4vh;
+.selectone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7vh;
+  width: 20vw;
+  border: 3px groove black;
+  border-radius: 4vh;
+  cursor: pointer;
 }
 
-.backbtn{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    right: 3vh;
-    top: 2vh;
-    background-color: rgb(86, 136, 137);
-    color: aliceblue;
+.backbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 3vh;
+  top: 2vh;
+  background-color: rgb(86, 136, 137);
+  color: aliceblue;
 }
+
+.displayann {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.announcement {
+  display: flex; 
+  flex-direction: column;
+  align-items: flex-start;
+  border: 3px solid black;
+  border-radius: 3vh;
+  width: auto; 
+  max-width: 60vw;
+  padding: 10px;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+
+.past-announcements {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5vh;
+  width: 60vw;
+  height: 60vh;
+  overflow-y: auto;
+  border: 3px solid black;
+  padding: 2vh;
+  border-radius: 3vh;
+}
+
+
+.past-announcements::-webkit-scrollbar {
+  width: 8px;
+}
+
+.past-announcements::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 4px;
+}
+
+.past-announcements::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
+
+.add-announcement{
+  background-color: rgb(71, 144, 209);
+  height: 20vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3vh;
+
+}
+
+.add-announcement textarea{
+  height: 12vh;
+  width: 50vw;
+  font-size: 3vh;
+  border: 3px solid black;
+  border-radius: 2vh;
+  max-height: 12vh;
+  min-height: 12vh;
+  min-width: 50vw;
+  max-width: 50vw;
+  padding: 1vh;
+}
+
+.add-announcement button{
+  height: 6vh;
+  width: 10vw;
+  border-radius: 3vh;
+  cursor: pointer;
+}
+
+.add-announcement button:hover{
+  background-color: lightgreen;
+}
+
+.displaycomplaint{
+  display: flex;
+  width: 100%;
+}
+
+.from,.see_add,.fromhosteler{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid black;
+  /* gap: 2vh; */
+}
+
+.from{
+  width: 28vw;
+  height: 82vh;
+  overflow:hidden;
+}
+
+.hostelername{
+  font-size: 3.5vh;
+}
+
+.hosteleremail{
+  font-size: 2.5vh;
+}
+
+.fromhosteler{
+  padding: 1vh;
+  margin-top: 2vh;
+  max-width: 25vw;
+  cursor: pointer;
+  border-radius: 3vh;
+}
+
+.see_add{
+  width: 70vw;
+}
+
+.comp_reply{
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 5vh;
+  width: 68vw;
+  height: 65vh;
+  overflow-y: auto;
+  /* border: 3px solid black; */
+  padding: 2vh;
+  border-radius: 3vh;
+}
+
+.single-message{
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  border: 3px solid black;
+  border-radius: 3vh;
+  padding: 1vh;
+  max-width: 60vw;
+  width: auto;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.addcomplaints{
+  background-color: rgb(71, 144, 209);
+  height: 13vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3vh;
+}
+
+.addcomplaints textarea{
+  font-size: 3vh;
+  border: 3px solid black;
+  border-radius: 2vh;
+  max-height: 8vh;
+  min-height: 8vh;
+  min-width: 45vw;
+  max-width: 45vw;
+  padding: 1vh;
+}
+
+.addcomplaints button{
+  height: 6vh;
+  width: 10vw;
+  border-radius: 3vh;
+  cursor: pointer;
+}
+
+.addcomplaints button:hover{
+  background-color: lightgreen;
+  color: black;
+}
+
+.single-message.complaint {
+  align-self: flex-start;
+}
+
+.single-message.reply {
+  align-self: flex-end;
+  background-color: #d5d9d7;
+}
+
+
+

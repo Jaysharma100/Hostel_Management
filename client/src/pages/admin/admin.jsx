@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import Loader from "../../components/loader.jsx"
+import "../../design/loader.css"
 import "../../design/admin.css"
 import { useNavigate } from "react-router-dom"
 import { useState ,useEffect} from "react";
@@ -87,7 +89,7 @@ const Admin = ({user}) => {
   const [confirm,setconfirm]=useState("");
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Loader/>;
   }
 
   const handleViewHostelers = (roomNumber) => {

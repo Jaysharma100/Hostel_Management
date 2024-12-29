@@ -15,6 +15,8 @@ const Signup=()=>{
     const [select1,setselect1]=useState(0);
     const [error,seterror]=useState(null);
     const [next,setnext]=useState(0);
+    const [mobile,setmobile]=useState(null);
+    const [location,setlocation]=useState(null);
 
     const addclass1=select1? " inuse":" ";
     const addclass2=select1? " ":" inuse";
@@ -47,6 +49,8 @@ const Signup=()=>{
         formdata.append('avatar',avatar);
         formdata.append('role',role);
         formdata.append('hostel',hostel);
+        formdata.append('mobile',mobile);
+        formdata.append('location',location);
 
         const response= await fetch(`http://localhost:4000/api/auth/signup`,{
             method:'POST',
@@ -99,10 +103,14 @@ const Signup=()=>{
                 <img src={AvatarPreview} alt="" />
                 {avatar!==defaultimage && <button onClick={handleremove}>remove</button>}
             </div>
+            <span>Mobile</span>
+            <input type="number" onChange={(e)=>setmobile(e.target.value)}/>
             { role==="admin" && 
             <div className="nextinput">
                 <span>Hostel Name*</span>
                 <input id="hostelin" type="text" onChange={(e)=>{sethostel(e.target.value)}}/>
+                <span>Location</span>
+                <input type="text" onChange={(e)=>{setlocation(e.target.value)}}/>
             </div>
             }
         </div>

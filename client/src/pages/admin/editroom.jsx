@@ -69,6 +69,7 @@ const Editroom = ({user}) => {
   };
 
   const handleRemove = (index) => {
+    setogemail(ogemail)
     setroomno((prev) => prev.filter((_, i) => i !== index));
   };
 

@@ -16,6 +16,10 @@ const userschema= new mongoose.Schema({
         enum:["admin","user"],
         default:"user",
     },
+    mobile:{
+        type:Number,
+        required:true
+    },
     password:{
         type:String,
         required:true
