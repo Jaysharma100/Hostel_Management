@@ -12,7 +12,15 @@ const roomschema = new mongoose.Schema({
       required: true,
       min: 1,
     },
-    hostelers: [
+    flag:{
+      type:Number,
+      default:0
+    },
+    flagUpdatedAt:{
+      type:Date,
+      default:Date.now
+    },
+    hostelers:[
       {
         email: {
           type: String,

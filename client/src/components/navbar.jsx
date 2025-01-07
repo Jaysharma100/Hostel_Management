@@ -8,7 +8,7 @@ const Navbar = ({selected,user}) => {
   const [option,setoption]=useState(selected);
   const [openthis1,setopenthis1]=useState(0);
   const [openthis2,setopenthis2]=useState(0);
-  const [confirm,setconfirm]=useState(0);
+  const [confirm,setconfirm]=useState(null);
   const [error,seterror]=useState(null);
 
   const [ogavatar,setogavatar]=useState(null);
@@ -161,7 +161,7 @@ const Navbar = ({selected,user}) => {
               <span>{`Type "CONFIRM"`}</span>
               <input type="text" value={confirm} onChange={(e)=>setconfirm(e.target.value)} />
              </>}
-            {(ogname!==newname || ogemail!==newemail || newavatar) && <button className="edit2btn edit2btnext" onClick={updateprofile}>Save Changes</button>}
+            {(ogname!==newname || ogemail!==newemail || newavatar || newmobile!=ogmobile) && <button className="edit2btn edit2btnext" onClick={updateprofile}>Save Changes</button>}
             <span>{error? error.toString():""}</span>
           </div>
         </div>

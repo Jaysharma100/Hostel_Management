@@ -5,7 +5,7 @@ import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
 import fs from "fs"
 import complaint_replymodel from "../models/complaint.js"
-
+import redis from "../utils/redis.js"
 
 const register=async(req,res)=>{
     try{
@@ -28,7 +28,7 @@ const register=async(req,res)=>{
        })
 
        await newuser.save()
-
+       
        if(hostel){
         const newhostel=new hostelmodel({
             name:hostel,
@@ -436,6 +436,7 @@ const hostelfetch=async(req,res)=>{
             name: hostel.name,
             description: hostel.description,
             floors: hostel.floors,
+            location: hostel.location
           },
           admin: {
             name: admin.name,
@@ -453,4 +454,151 @@ const hostelfetch=async(req,res)=>{
   }
 }
 
-export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom,announcement,complaints_reply,hostelfetch}
+const measureMONGODB_time=async(req,res)=>{
+  const { email, floorNumber, roomNumber } = req.body;
+
+    try {
+        const startTime = Date.now(); // Record the time when the request starts
+
+        const hostel = await hostelmodel.findOne({email});
+        if (!hostel) return res.status(404).send({ message: "Hostel not found" });
+        console.log(hostel);
+        
+        // console.log(hostel.floors.get(floorNumber));
+        const room = hostel.floors.get(floorNumber)?.find(r => r.number === roomNumber);
+        if (!room) return res.status(404).send({ message: "Room not found" });
+
+        if (room.flag !== 0){
+          room.flag = 0;
+        room.flagUpdatedAt = new Date();
+
+        await hostel.save();
+          return res.status(400).send({ message: "Room is already in use" });
+        }
+
+        room.flag = 1;
+        room.flagUpdatedAt = new Date();
+
+        await hostel.save();
+
+        const endTime = Date.now(); // Record the time after the database update
+        const timeDifference = (endTime - startTime); // Time in milliseconds
+
+        res.status(200).send({
+            message: "Flag updated to 1",
+            timeDifference: `${timeDifference} ms`,
+        });
+    } catch (error) { 
+        console.error(error);
+        res.status(500).send({ message: "Internal server error" });
+    }
+}
+
+const measureRedisTime = async (req, res) => {
+  const { email, floorNumber, roomNumber, ttl } = req.body;
+
+  try {
+    const startTime = Date.now();
+
+    const uniqueKey = `${email}_${floorNumber}_${roomNumber}`;
+
+    const keyExists = await redis.exists(uniqueKey);
+    if (keyExists) {
+      return res.status(409).json({message:"room already in use"});
+    }
+
+    await redis.set(uniqueKey, 1, 'EX', ttl);
+
+    const timeDifference = Date.now() - startTime;
+
+    res.status(200).send({
+      timeDifference: `${timeDifference} ms`,
+    });
+  } catch (error) {
+    console.error("Error setting key in Redis:", error);
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
+
+const lockroom=async(req,res)=>{
+  const {email,floorNumber,roomNumber,isopen}=req.body;
+  
+  try{
+    const uniqueKey = `${email}_${floorNumber}_${roomNumber}`;
+
+    const keyExists = await redis.exists(uniqueKey);
+
+    if(isopen){
+      if(keyExists)
+      redis.del(uniqueKey);
+      return res.status(200).json({success:true,message:"done closing",open:0})
+    }
+    if (keyExists) {
+      return res.status(409).json({message:"Unknown Error"});
+    }
+    await redis.set(uniqueKey, 1, 'EX', 3);
+    return res.status(200).json({success:true,message:"Go Ahead, Complete Booking!",open:1})
+  }
+  catch(err){
+    return res.status(500).json({success:false,message:"Internal server Error",err});
+  }
+}
+
+const bookroom= async(req,res)=>{
+  const {email,floorNumber,roomNumber,user_email}=req.body;
+  if (!email || !floorNumber || !roomNumber || !user_email) {
+    return res.status(400).json({ message: 'All fields are required.' });
+  }
+  try{
+    const allHostels = await hostelmodel.find({});
+    for (const hostel of allHostels) {
+      for (const [floor, rooms] of hostel.floors.entries()) {
+        for (const room of rooms) {
+          if (room.hostelers.some(hosteler => hosteler.email === user_email)) {
+            return res.status(400).json({
+              message: `Already in a hostel: ${hostel.name}. Leave the hostel using your room page first.`,
+            });
+          }
+        }
+      }
+    }
+
+    const uniqueKey = `${email}_${floorNumber}_${roomNumber}`;
+    await redis.del(uniqueKey);
+
+    const hostel = await hostelmodel.findOne({ email });
+    if (!hostel) {
+      return res.status(404).json({ message: "Hostel not found" });
+    }
+
+    const hostelfloor = hostel.floors.get(floorNumber);
+    if (!hostelfloor) {
+      return res.status(404).json({ message: "Floor not found" });
+    }
+
+    const roomIndex = hostelfloor.findIndex(r => r.number === parseInt(roomNumber));
+    if (roomIndex === -1) {
+      return res.status(400).json({ message: "Room number does not exist on the floor" });
+    }
+
+    const room = hostelfloor[roomIndex];
+    if (room.hostelers.length >= room.capacity) {
+      return res.status(400).json({ message: "Room is already full" });
+    }
+
+    room.hostelers.push({ email: user_email });
+    hostel.floors.set(floorNumber, hostelfloor);
+
+    await hostel.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Room booked successfully",
+    });
+  }
+  catch(err){
+    return res.status(500).json({success:false,message:"Internal server Error",err});
+  }
+}
+
+export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom,announcement,complaints_reply,hostelfetch,measureMONGODB_time,measureRedisTime,lockroom,bookroom}

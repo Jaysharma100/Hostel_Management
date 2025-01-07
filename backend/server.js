@@ -4,8 +4,9 @@ import cors from 'cors'
 import path from 'path'
 import dbconnect from './utils/db.js'
 import Authroutes from './routes/auth.js'
-
 dotenv.config()
+
+import redis from './utils/redis.js'
 dbconnect()
 
 const app=express()

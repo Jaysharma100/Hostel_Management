@@ -1,7 +1,7 @@
 .navbar{
     height: 8vh;
     /* border-top: 1vh solid rebeccapurple; */
-    width: 100vw;
+    width: 98vw;
     display: flex;
     justify-content: space-around;
 }
