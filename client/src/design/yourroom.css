@@ -1,0 +1,92 @@
+.display {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .display h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #444;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .room-info {
+    background-color: #e6f7ff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .room-info p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #0077cc;
+  }
+  
+  .room-info span {
+    color: #333;
+    font-weight: normal;
+  }
+  
+  .display h3 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #555;
+  }
+  
+  .display ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .display ul li {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .display ul li span {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+  
+  .contact-hostel {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .contact-hostel h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+  }
+  
+  .contact-hostel p {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+
+  .room-info-more{
+    display: flex;
+    gap: 20%;
+  }

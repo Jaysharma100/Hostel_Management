@@ -341,13 +341,17 @@ const updateroom = async (req, res) => {
 };
 
 const announcement = async (req, res) => {
-  const { email, message } = req.body;
+  const { email, message, justcheck} = req.body;
   if (!email) {
     return res.status(400).json({ message: "Email is required" });
   }
 
   try {
     let annDoc = await annmodel.findOne({ email });
+
+    if(justcheck===1){
+      return res.status(200).json({success:true,announcements:annDoc});
+    }
 
     if (!annDoc) {
       if (message) {
@@ -374,7 +378,7 @@ const announcement = async (req, res) => {
 
 const complaints_reply=async(req,res)=>{
   try{
-    const {To,from,message}=req.body;
+    const {To,from,message,type}=req.body;
     if(!To){
       return res.staus(400).json({message:"admin's email is required"});
     }
@@ -391,7 +395,18 @@ const complaints_reply=async(req,res)=>{
       return res.staus(400).json({message:"From: email was not found"});
     }
     else if(!message){
-      return res.staus(400).json({message:"Message to be sent was not found"});
+      const comprepfound = comp_reply.messages.find((hosteler) => hosteler.email === from);
+
+      if (!comprepfound) {
+        return res.status(404).json({
+          message: `No complaints found for the provided email: ${from}`,
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        messages: comprepfound.messages.reverse(),
+      });
     }
     else{
       
@@ -405,6 +420,7 @@ const complaints_reply=async(req,res)=>{
       
       hosteler.messages.push({
         text: message,
+        type: type,
         createdAt: new Date(),
       });
     
@@ -412,7 +428,7 @@ const complaints_reply=async(req,res)=>{
     return res.status(200).json({
       success: true,
       message: "Message added successfully.",
-      comp_reply:comp_reply.messages,
+      comp_reply:type==="reply"?comp_reply.messages:hosteler.messages.reverse(),
     });
   }
   }
@@ -545,22 +561,27 @@ const lockroom=async(req,res)=>{
 }
 
 const bookroom= async(req,res)=>{
-  const {email,floorNumber,roomNumber,user_email}=req.body;
-  if (!email || !floorNumber || !roomNumber || !user_email) {
-    return res.status(400).json({ message: 'All fields are required.' });
-  }
+  const {email,floorNumber,roomNumber,user_email,justcheck}=req.body;
   try{
     const allHostels = await hostelmodel.find({});
     for (const hostel of allHostels) {
       for (const [floor, rooms] of hostel.floors.entries()) {
         for (const room of rooms) {
           if (room.hostelers.some(hosteler => hosteler.email === user_email)) {
+            if(justcheck && justcheck===1){
+              const admin=await usermodel.findOne({email:hostel.email});
+              return res.status(200).json({suceess:true,room:room,floor:floor,hostel:hostel.name,admin:admin});
+            }
             return res.status(400).json({
               message: `Already in a hostel: ${hostel.name}. Leave the hostel using your room page first.`,
             });
           }
         }
       }
+    }
+
+    if(justcheck===1){
+      return res.status(404).json({suceess:true,message:"Get yourself a room by browsing them at hostels"});
     }
 
     const uniqueKey = `${email}_${floorNumber}_${roomNumber}`;
@@ -601,4 +622,36 @@ const bookroom= async(req,res)=>{
   }
 }
 
-export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom,announcement,complaints_reply,hostelfetch,measureMONGODB_time,measureRedisTime,lockroom,bookroom}
+const leaveroom=async(req,res)=>{
+  const {user_email,hostel_email,floor,room}=req.body;
+  try{
+    
+    const hostel=await hostelmodel.findOne({email:hostel_email});
+    if(!hostel){
+      return res.status(404).json({ message: "Hostel not found" });
+    }
+    const floorRooms = hostel.floors.get(floor);
+    if (!floorRooms) {
+      return res.status(404).json({ message: "Floor not found" });
+    }
+
+    const roomData = floorRooms.find((r) => r.number === room);
+    if (!roomData) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    const updatedHostelers = roomData.hostelers.filter(
+      (hosteler) => hosteler.email !== user_email
+    );
+    roomData.hostelers = updatedHostelers;
+
+    await hostel.save();
+
+    return res.status(200).json({ success: true, message: "User removed from room" });
+  }
+  catch(err){
+    return res.status(500).json({success:false,message:"Internal server Error",err});
+  }
+}
+
+export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom,announcement,complaints_reply,hostelfetch,measureMONGODB_time,measureRedisTime,lockroom,bookroom,leaveroom}

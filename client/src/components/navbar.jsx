@@ -14,7 +14,7 @@ const Navbar = ({selected,user}) => {
   const [ogavatar,setogavatar]=useState(null);
   const [ogname,setogname]=useState(null);
   const [ogemail,setogemail]=useState(null);
-    const [ogmobile,setogmobile]=useState(null);
+  const [ogmobile,setogmobile]=useState(null);
 
   const [newavatar,setnewavatar]=useState(ogavatar);
   const [newname,setnewname]=useState(ogname);

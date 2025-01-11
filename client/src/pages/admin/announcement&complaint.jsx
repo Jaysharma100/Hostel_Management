@@ -111,7 +111,7 @@ const Anncomp = ({user}) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({To:email,from:selecthosteler,message:reply}),
+        body: JSON.stringify({To:email,from:selecthosteler,message:reply,type:"reply"}),
       });
       const data = await response.json();
       if (response.ok) {
