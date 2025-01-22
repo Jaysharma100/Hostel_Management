@@ -10,6 +10,7 @@ const Navbar = ({selected,user}) => {
   const [openthis2,setopenthis2]=useState(0);
   const [confirm,setconfirm]=useState(null);
   const [error,seterror]=useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const [ogavatar,setogavatar]=useState(null);
   const [ogname,setogname]=useState(null);
@@ -39,6 +40,9 @@ const Navbar = ({selected,user}) => {
    return <>Loading....</>
   }
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   function handleclick(e){
      setoption(e.opt);
@@ -108,7 +112,7 @@ const Navbar = ({selected,user}) => {
 
   return (
     <>
-    <div className={`navbar ${(openthis1) ? "blurred" : ""}`}>
+    <div className={`navbar ${(openthis1) ? "blurred" : ""} ${(dropdownOpen) ? "increment" : ""} `}>
         <div className="logo"></div>
         <div className="routes">
             <div className={`linkto ${option==="1"?"selected":""}`} onClick={()=> handleclick({opt:"1"})}>Your room</div>
@@ -119,6 +123,20 @@ const Navbar = ({selected,user}) => {
         <div className="view" onClick={()=>setopenthis1(1)}>
             <img src={`http://localhost:4000/${ogavatar}`} alt="" />
             <span>View<br></br>Profile</span>
+        </div>
+
+        <div className="hamburger" onClick={toggleDropdown}>
+            <div></div> 
+            <div></div>
+            <div></div>
+        </div>
+
+        {/* Dropdown menu */}
+        <div className={`dropdown-menu ${dropdownOpen ? "show" : ""}`}>
+            <div className={`linkto ${option === "1" ? "selected" : ""}`} onClick={() => handleclick({ opt: "1" })}>Your room</div>
+            <div className={`linkto ${option === "2" ? "selected" : ""}`} onClick={() => handleclick({ opt: "2" })}>Hostel</div>
+            <div className={`linkto ${option === "3" ? "selected" : ""}`} onClick={() => handleclick({ opt: "3" })}>Notification</div>
+            <div className={`linkto ${option === "4" ? "selected" : ""}`} onClick={() => handleclick({ opt: "4" })}>more</div>
         </div>
     </div>
 

@@ -145,7 +145,7 @@ const Anncomp = ({user}) => {
             className="edit2btn edit2btnext backbtn"
             onClick={() => navigate("/admin")}
           >
-            {"<<< BACK"}
+            {"<<BACK"}
           </span>
         </div>
         {openthis1 === 0 ? (
@@ -186,7 +186,7 @@ const Anncomp = ({user}) => {
                   .map((comp, index) => (
                     <div key={index} className="comp_reply">
                       {comp.messages && 
-                        comp.messages.map((msg, msgIndex) => (
+                        comp.messages.slice().reverse().map((msg, msgIndex) => (
                           <div className={`single-message ${msg.type}`} key={msgIndex}>
                             <span className="message-timestamp" style={{fontSize:"2.4vh"}}>
                               {new Date(msg.createdAt).toLocaleString()}  

@@ -1,16 +1,21 @@
-.navbar{
+
+.navbar {
     height: 8vh;
-    /* border-top: 1vh solid rebeccapurple; */
     width: 98vw;
     display: flex;
     justify-content: space-around;
+    position: relative;
+    background-color: aliceblue;
 }
 
+/* Logo styling */
 .logo {
     width: 10%;
     border: 1px solid red;
 }
-.routes{
+
+/* Routes section */
+.routes {
     width: 70%;
     height: 8vh;
     display: flex;
@@ -18,45 +23,115 @@
     align-items: center;
 }
 
-.linkto{
+/* Link styles */
+.linkto {
     display: flex;
     height: 70%;
     width: 20%;
-    border: 1px solid rebeccapurple;
     justify-content: center;
     align-items: center;
     border-radius: 2vh;
     box-shadow: 0 0 10px black;
 }
 
-.link-normal{
-    text-Decoration:none;
-    color:inherit
-}
-
-.linkto:hover{
+/* Link hover effect */
+.linkto:hover {
     box-shadow: inset 0 -2px 1px rgb(25, 74, 25);
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
 
-.selected{
+/* Selected link styling */
+.selected {
     background-color: rgb(187, 222, 166);
     color: black;
-    border:0.6vh solid rgba(0, 0, 0, 0.714);
+    border: 0.6vh solid rgba(0, 0, 0, 0.714);
 }
 
-.view{
+/* View section for profile */
+.view {
     width: 15%;
-    /* border: 1px solid rebeccapurple; */
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1vh;
 }
 
-.view img{
+.view img {
     width: 11vh;
     height: 11vh;
     border-radius: 50%;
+}
+
+/* Hamburger styles - hidden by default */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    position: absolute;
+    top: 2vh;
+    left: 2vw; /* Move to extreme left */
+}
+
+.hamburger div {
+    width: 25px;
+    height: 4px;
+    background-color: black;
+    border-radius: 5px;
+}
+
+.dropdown-menu{
+    display: none;
+}
+
+/* Media query for screens below 670px */
+@media screen and (max-width: 670px) {
+    .routes {
+        display: none; /* Hide routes for smaller screens */
+    }
+    .increment{
+        height: 40vh;
+    }
+    /* Hamburger icon visible on small screens */
+    .hamburger {
+        display: flex;
+    }
+
+    .navbar {
+        justify-content: flex-start;
+    }
+
+    /* Dropdown menu when hamburger is clicked */
+    .dropdown-menu {
+        position: absolute;
+        top: 13vh;
+        left: 0;
+        background-color: white;
+        width: 98vw;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .dropdown-menu.show {
+        display: flex;
+    }
+
+    .linkto {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .linkto:hover {
+        background-color: rgb(187, 222, 166);
+    }
+
+    .view{
+        position: absolute;
+        right: 8vh;
+    }
 }

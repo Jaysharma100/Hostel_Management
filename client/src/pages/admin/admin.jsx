@@ -251,7 +251,7 @@ const Admin = ({user}) => {
           )}
         </div>
         {rooms &&
-        <div className="rooms">
+        <div className="rooms_admin">
           {rooms && rooms.map((room, index) => (
             <div
               key={index}
@@ -261,7 +261,7 @@ const Admin = ({user}) => {
                 border: "1px solid #ddd",
                 borderRadius: "4px",
                 margin: "5px 0",
-                backgroundColor: "#e8f4f8",
+                backgroundColor: "#f0f8ff",
               }}
             >
               <div className="roomtop">

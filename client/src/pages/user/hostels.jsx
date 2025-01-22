@@ -342,7 +342,17 @@
                           View Hostelers
                         </button>
                         <span>{room.capacity - room.hostelers.length} seats remaining</span>
-                        <button className="book-btn" onClick={() =>{handlebookclick(),setBookingRoomDetails(room)}}>Book</button>
+                        {room.hostelers.length < room.capacity && ( // Only show if room is not full
+                          <button
+                            className="book-btn"
+                            onClick={() => {
+                              handlebookclick();
+                              setBookingRoomDetails(room);
+                            }}
+                          >
+                            Book
+                          </button>
+                        )}
                       </>
                     )}
                   </div>

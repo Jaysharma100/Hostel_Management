@@ -67,7 +67,7 @@ const Signup=()=>{
         }
     };
     return(
-    <> 
+    <div className="login_page"> 
     <div className="top">
         <span>SignUp...</span>
         <p>{error}</p>
@@ -118,10 +118,10 @@ const Signup=()=>{
         <div className="signupbottom">
             <div className="goto">
                 {next==0?
-                <button onClick={()=>{setnext(1)}}>Next</button>
+                <button onClick={()=>{setnext(1)}} className="next">Next</button>
                 :
                 <div className="gotoback">
-                    <button id="backbtn" onClick={()=>{setnext(0)}}>Back</button>
+                    <button id="backbtn_signup" onClick={()=>{setnext(0)}}>Back</button>
                     <button onClick={handlesignup}>signup</button>
                 </div>
                 }
@@ -129,7 +129,7 @@ const Signup=()=>{
             </div>
         </div>
     </div>
-    </>
+    </div>
     )
 }
 

@@ -216,7 +216,7 @@ const Editroom = ({user}) => {
                 </>
               ) : (
                 <>
-                  <span style={{ fontSize: "4vh" }}>Enter Room number range</span>
+                  <span>Enter Room number range</span>
                   <div className="roomrange">
                     <div className="group">
                       <span>From</span>

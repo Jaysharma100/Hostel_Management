@@ -19,12 +19,13 @@
     align-items: center;
     justify-content: center;
     height: 10vh;
-    width: 30vw;
-    font-size: 4vh;
+    min-width: 30vw;
+    font-size: 100%;
     border: 3px solid black;
     border-radius: 5vh;
     transition: width 0.2s ease, height 0.15s ease, border-radius 0.2s ease;
     text-align: center;
+    background-color:aliceblue;
 }
 
 .gotoedit:hover{
@@ -41,16 +42,14 @@
     right: 3vh;
     top: 2vh;
     height: 7vh;
-    width: 10vw;
 }
 
 /* admin top css */
 .admintop{
     display: flex;
-    width: 70vw;
-    justify-content: space-around;
+    width: 98vw;
     align-items: center;
-    /* border: 3px solid black; */
+    gap: 2vh;
 }
 
 .profile{
@@ -65,6 +64,7 @@
     border-bottom-left-radius: 4vh;
     transition: width 0.2s ease, height 0.3s ease, border-radius 0.2s ease;
     font-size: 3vh;
+    background-color: aliceblue;
 }
 
 .profile img{
@@ -93,7 +93,6 @@
 
 .profile:hover{
     height: 12vh;
-    width: 20vw;
 }
 .profeditbtn{
     margin-top: 1vh;
@@ -173,8 +172,9 @@
     flex-direction: column;
     border-top: 3px groove black;
     padding: 2vh;
-    width: 98vw;
+    width: 95vw;
     margin-top: 5vh;
+    
 }
 
 .dropdown-header{
@@ -206,10 +206,11 @@
     flex-direction: column;
 }
 
-.rooms{
+.rooms_admin{
     display: flex;
     flex-direction: column;
-    gap: 2vh    ;
+    gap: 2vh;
+    background-color: alice;
 }
 
 .hostelers{
@@ -230,4 +231,6 @@
     padding: 1.3vh;
     border-radius: 2vh;
 }
+
+
 

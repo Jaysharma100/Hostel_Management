@@ -10,7 +10,6 @@
     align-items: center;
     width: 100%;
     height: 15vh;
-    /* border: 3px solid black; */
     margin-top: 2vh;
     gap: 5%;
 }
@@ -376,4 +375,89 @@
 
 .confirm-btn:hover {
   background-color: #4cae4c;
+}
+
+@media screen and (max-width: 670px) {
+  /* Update hostel layout */
+  .hostel {
+    margin-top: 4vh;
+    padding: 2vh;
+  }
+
+  /* Adjust search bar */
+  .search {
+    flex-direction: column;
+    height: auto;
+    gap: 10%;
+  }
+
+  .searchby {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .searchby input {
+    width: 100%;
+    padding: 2vh;
+  }
+
+  .searchtitle {
+    font-size: 4.5vh;
+  }
+
+  /* Adjust search results table */
+  .displaysearchresult{
+    width: 100vw;
+  }
+  .hostel-table {
+    width: 100%;
+  }
+
+  .hostel-table th,
+  .hostel-table td {
+    padding: 10px;
+    font-size: 3.5vh;
+  }
+
+  .hostel-table th {
+    font-weight: bold;
+  }
+
+  .hostel-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .hostel-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  .hostelers-popup {
+    width: 90vw;
+    height: 70vh;
+    padding: 2vh;
+    overflow-y: auto;
+  }
+
+  .hosteler-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2vh;
+  }
+
+  .hostelers-popup-content {
+    padding-top: 2vh;
+  }
+
+  .hostelers-popup-header h2 {
+    font-size: 4vh;
+  }
+
+  .searchby{
+    height: 14vh;
+  }
+
+  .searchtitle{
+    font-size: 3vh;
+  }
 }

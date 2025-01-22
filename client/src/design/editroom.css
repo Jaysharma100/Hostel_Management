@@ -3,6 +3,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-size: clamp(0.7rem, 2vw, 2.5rem);
+    /* background-color: rgb(194, 182, 234); */
+    background-color: rgb(175, 210, 240);
 }
     
 .addroom{
@@ -10,7 +13,7 @@
     flex-direction: column;
     min-height: 40vh;
     width: 85vw;
-    /* border: 3px solid red;*/
+    /* border: 2px solid red;*/
 }
 
 .selectmode{
@@ -27,7 +30,7 @@
     justify-content: center;
     height: 4vh;
     padding: 1vh;
-    border: 3px solid black;
+    border: 2px solid black;
     border-radius: 4vh;
     cursor: pointer;
     transition: border-radius 0.3s ease;
@@ -88,11 +91,12 @@
     justify-content: space-around;
 }
 .edit2btn{
-    height: 10vh;
-    width: 15vw;
-    border: 3px solid black;
+    min-height: 6vh;
+    /* width: 15vw; */
+    border: 2px solid black;
     border-radius: 5vh;
     transition: border-radius 0.3s ease;
+    font-size: clamp(0.6rem, 2vw, 2.5rem);
 }
 
 .edit2btn:hover{
@@ -177,8 +181,7 @@
 }
 
 .edit2btnext {
-    height: 6vh;
-    width: 10vw;
+    max-width: 15vw;
 }
 
 .blurred {
@@ -221,7 +224,7 @@
     gap: 2vw;
     min-height: 20vh;
     width: 100%;
-    border: 3px solid black;
+    border: 2px solid black;
     border-radius: 3vh;
     flex-wrap: wrap;
 }
@@ -250,7 +253,7 @@
 }
 .popupdetails input{
     width: 26vw;
-    border: 3px 0px 0px 0px solid black;
+    border: 2px 0px 0px 0px solid black;
 }
 
 .popupdetails::-webkit-scrollbar {
@@ -298,4 +301,25 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .popup {
+        width: 80%; /* 80% of the mobile screen width */
+        height: 70%; /* 70% of the mobile screen height */
+        left: 10%; /* Center horizontally */
+        top: 15%; /* Center vertically */
+    }
+
+    .popup-content {
+        max-height: 65%; /* Adjust for smaller screens */
+    }
+
+    .popup table {
+        width: 100%; /* Table should take the full width of the popup */
+    }
+
+    .popup input{
+        width: 80%;
+    }
 }

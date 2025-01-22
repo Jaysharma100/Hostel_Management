@@ -90,3 +90,9 @@
     display: flex;
     gap: 20%;
   }
+
+  @media (max-width:670px){
+    .room-info-more{
+      flex-direction: column;
+    }
+  }

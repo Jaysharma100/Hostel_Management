@@ -129,7 +129,7 @@ input{
 }
 
 .inuse{
-    background-color: greenyellow;
+    background-color: rgb(204, 223, 144);
 }
 
 .input1{
@@ -144,14 +144,28 @@ input{
 }
 .gotoback{
     display: flex;
-    flex-direction: column;
+    gap: 2vh;
     align-items: center;
 }
 .gotoback button{
     height: 6vh;
     margin-top: 1.3vh;
+    width: 20vw;
 }
 #backbtn{
     height: 4vh;
     width: 12vw;
+}
+
+
+@media (max-width:670px){
+    .signup{
+        width: 80vw;
+    }
+    .signupselect span{
+        width: 30vh;
+    }
+    .nextpage label{
+        width: 30vw;
+    }
 }
