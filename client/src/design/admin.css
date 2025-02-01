@@ -31,7 +31,7 @@
 .gotoedit:hover{
     height: 12vh;
     width: 32vw;
-    background-color: rgb(71, 144, 209);
+    background-color: rgb(56, 77, 96);;
     color: aliceblue;
     border-top-left-radius: 0vh;
     border-bottom-right-radius: 0vh;
@@ -128,7 +128,7 @@
 }
 
 .addcolor{
-    background-color: rgb(71, 144, 209);
+    background-color: rgb(20, 95, 157);
     color: aliceblue;
 }
 

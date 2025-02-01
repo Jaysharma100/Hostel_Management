@@ -4,8 +4,6 @@
     align-items: center;
     justify-content: center;
     font-size: clamp(0.7rem, 2vw, 2.5rem);
-    /* background-color: rgb(194, 182, 234); */
-    background-color: rgb(175, 210, 240);
 }
     
 .addroom{
@@ -43,7 +41,7 @@
 
 .selected{
     box-shadow: 0 0 9px  rgb(71, 144, 209);;
-    background-color: rgb(71, 144, 209);
+    background-color: rgb(56, 77, 96);
     color: white;
     border-top-left-radius: 1vh;
     border-bottom-right-radius: 1vh;
@@ -94,7 +92,7 @@
     min-height: 6vh;
     /* width: 15vw; */
     border: 2px solid black;
-    border-radius: 5vh;
+    border-radius: 3.6vh;
     transition: border-radius 0.3s ease;
     font-size: clamp(0.6rem, 2vw, 2.5rem);
 }
@@ -102,8 +100,9 @@
 .edit2btn:hover{
     border-top-left-radius: 0vh;
     border-bottom-right-radius: 0vh;
-    background-color: rgb(71, 144, 209);
-    color: aliceblue;
+    background-color: rgb(56, 77, 96);
+    color: white;
+    box-shadow: 0px 0px 5px aliceblue;
 }
 
 .popup {
@@ -309,10 +308,8 @@
         height: 70%; /* 70% of the mobile screen height */
         left: 10%; /* Center horizontally */
         top: 15%; /* Center vertically */
-    }
-
-    .popup-content {
-        max-height: 65%; /* Adjust for smaller screens */
+        display: flex;
+        justify-content: center;
     }
 
     .popup table {
@@ -321,5 +318,9 @@
 
     .popup input{
         width: 80%;
+    }
+
+    .table-container{
+       width: 80vw;
     }
 }

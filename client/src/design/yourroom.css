@@ -20,7 +20,7 @@
   }
   
   .room-info {
-    background-color: #e6f7ff;
+    background-color: #535b5f;
     padding: 15px;
     margin-bottom: 20px;
     border-radius: 10px;
@@ -31,11 +31,11 @@
     font-size: 18px;
     font-weight: bold;
     margin: 10px 0;
-    color: #0077cc;
+    color: aliceblue;
   }
   
   .room-info span {
-    color: #333;
+    color: #efe9e9;
     font-weight: normal;
   }
   

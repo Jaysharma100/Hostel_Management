@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import "../../design/editroom.css";
 import { useNavigate } from "react-router-dom";
+import backgroundImage from "../../assets/background.jpg";
 
 const Editroom = ({user}) => {
   const navigate=useNavigate();
@@ -164,6 +165,19 @@ const Editroom = ({user}) => {
   return (
     <>
       <div className={`main ${(showPopup || showpopup2) ? "blurred" : ""}`}>
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage: `url(${backgroundImage})`,
+          opacity:"0.7",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          zIndex: -1,
+        }}></div>
         <button className="edit2btn edit2btnext" id="backbtn" onClick={()=>navigate("/admin")}>{`<<< BACK`}</button>
         <h2>Add Rooms</h2>
         <div className="addroom">
@@ -181,7 +195,7 @@ const Editroom = ({user}) => {
               Add Multiple Similar
             </div>
           </div>
-          <span style={{color:"red"}}>(View List to Add Rooms to Hostel)</span>
+          <span>(View List to Add Rooms to Hostel)</span>
           <div className="container">
             <div className="inputs">
               <div className="commonin">
@@ -268,54 +282,52 @@ const Editroom = ({user}) => {
 
       {showPopup && (
         <div className="popup">
-          <div className="popup-content">
-            <div className="listtop">
-              <span style={{ fontSize: "4vh" }}>Room List</span>
-              <button className="edit2btn edit2btnext extadd2btn" onClick={() => setShowPopup(false)}>
-                X
-              </button>
-            </div>
-            <div className="table-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Serial No</th>
-                    <th>Floor No</th>
-                    <th>Room No</th>
-                    <th>Capacity</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {roomno.length > 0 ? (
-                    roomno.map((room, index) => (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{room.floor}</td>
-                        <td>{room.roomno}</td>
-                        <td>{room.capacity}</td>
-                        <td>
-                          <button
-                            className="edit2btn edit2btnext"
-                            onClick={() => handleRemove(index)}
-                          >
-                            Remove
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="5">Add Rooms to the list!</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-            <button className="edit2btn" style={{margin:"5vh 0vh 0vh 0vh"}} onClick={()=>{handleaddroom()}}>
-              ADD to Hostel
+          <div className="listtop">
+            <span style={{ fontSize: "4vh" }}>Room List</span>
+            <button className="edit2btn edit2btnext extadd2btn" onClick={() => setShowPopup(false)}>
+              X
             </button>
           </div>
+          <div className="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Serial No</th>
+                  <th>Floor No</th>
+                  <th>Room No</th>
+                  <th>Capacity</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {roomno.length > 0 ? (
+                  roomno.map((room, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{room.floor}</td>
+                      <td>{room.roomno}</td>
+                      <td>{room.capacity}</td>
+                      <td>
+                        <button
+                          className="edit2btn edit2btnext"
+                          onClick={() => handleRemove(index)}
+                        >
+                          Remove
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5">Add Rooms to the list!</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          <button className="edit2btn" style={{margin:"5vh 0vh 0vh 0vh"}} onClick={()=>{handleaddroom()}}>
+            ADD to Hostel
+          </button>
         </div>
       )}
 

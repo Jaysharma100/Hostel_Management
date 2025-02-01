@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import "../design/navbar.css"
+import logo from "../assets/HMA_logo.png"
 
 const Navbar = ({selected,user}) => {
 
@@ -64,6 +65,11 @@ const Navbar = ({selected,user}) => {
    setopenthis1(0);
   }
 
+  const handlelogout=()=>{
+    localStorage.removeItem('verification_token');
+    navigate("/login");
+  }
+
   const updateprofile=async()=>{
     
    if((ogname!==newname || ogemail!==newemail || ogmobile!==newmobile) && confirm!=="CONFIRM"){
@@ -91,9 +97,11 @@ const Navbar = ({selected,user}) => {
 
      const data=await response.json();
      if(response.status===200){
+        user.name=data.user.name;
+        user.avatar=data.user.avatar;
+        user.email=data.user.email;
         setogname(data.user.name);
         setogemail(data.user.email);
-        
         setogavatar(data.user.avatar);
         console.log(data.user.avatar);
         console.log(ogavatar);
@@ -113,7 +121,9 @@ const Navbar = ({selected,user}) => {
   return (
     <>
     <div className={`navbar ${(openthis1) ? "blurred" : ""} ${(dropdownOpen) ? "increment" : ""} `}>
-        <div className="logo"></div>
+        <div className="logo">
+          <img src={logo} className="navbar_logo" alt="" />
+        </div>
         <div className="routes">
             <div className={`linkto ${option==="1"?"selected":""}`} onClick={()=> handleclick({opt:"1"})}>Your room</div>
             <div className={`linkto ${option==="2"?"selected":""}`} onClick={()=> handleclick({opt:"2"})}>Hostel</div>
@@ -145,6 +155,12 @@ const Navbar = ({selected,user}) => {
         <div className="popup">
           <div className="popuptop">
             <h2>Profile Details</h2>
+            <button
+              className="edit2btn edit2btnext logout"
+              onClick={handlelogout}
+            >
+              Logout
+            </button>
             <button
               className="edit2btn edit2btnext extadd2btn"
               onClick={handlegoback}

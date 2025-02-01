@@ -1,6 +1,9 @@
 import { useState } from "react"
-import defaultimage from "../assets/deafult avatar.jpg"
+import defaultimage from "../assets/default avatar.jpg"
 import {Link,useNavigate} from "react-router-dom"
+import backgroundImage from "../assets/background.jpg";
+import logo from "../assets/HMA_logo.png"
+import signup_bg from "../assets/signup_bg.png"
 
 const Signup=()=>{
     const navigate=useNavigate();
@@ -67,9 +70,34 @@ const Signup=()=>{
         }
     };
     return(
-    <div className="login_page"> 
+    <div className="login_page">
+    <img src={logo} className="signup_logo" alt="" style={{zIndex:"1"}} /> 
+    <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    zIndex: -1,
+    }}></div>
+    <div style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundImage: `url(${signup_bg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    opacity:"0.42",
+    zIndex: 0,
+    }}></div>
     <div className="top">
-        <span>SignUp...</span>
         <p>{error}</p>
     </div>
     <div className="signup">
@@ -125,7 +153,7 @@ const Signup=()=>{
                     <button onClick={handlesignup}>signup</button>
                 </div>
                 }
-                <p>Already have an account?<Link to="/login">Login</Link></p>
+                <p>Already have an account?<Link to="/login" className="shortnav">Login</Link></p>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ import "../../design/loader.css"
 import "../../design/admin.css"
 import { useNavigate } from "react-router-dom"
 import { useState ,useEffect} from "react";
+import backgroundImage from "../../assets/background.jpg";
 
 const Admin = ({user}) => {
   const navigate=useNavigate();
@@ -200,6 +201,19 @@ const Admin = ({user}) => {
   return (
     <>
     <div className={`main ${(admin_popup1 || admin_popup2) ? "blurred" : ""}`}>
+      <div style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundImage: `url(${backgroundImage})`,
+      opacity:"0.7",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      zIndex: -1,
+      }}></div>
       <button className="edit2btn edit2btnext logoutbtn" onClick={handlelogout}>Logout</button>
       <div className="admintop">
         <div className="hostel_details profile" onMouseEnter={()=>sethide2(0)} onMouseLeave={()=>sethide2(1)}>

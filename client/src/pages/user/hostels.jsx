@@ -3,6 +3,7 @@
   import "../../design/loader.css"
   import Navbar from "../../components/navbar"
   import "../../design/hostels.css"
+  import backgroundImage from "../../assets/background.jpg";
   import PropTypes from "prop-types"
 
 
@@ -192,6 +193,18 @@
 
     return (
       <>
+      <div style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      zIndex: -1,
+      }}></div>
       <div className={`hostelsmain ${(openthis1 || openthis2)?"blurred":""}`}>
         <Navbar selected="2" user={user}/>
         <div className="hostel">
@@ -244,23 +257,23 @@
               X
             </button>
           </div>
-          <div className="popupdetails popupadd">
+          <div className="popupadd">
             <button className="edit2btn popupbook" onClick={handlebook}>Book a Room</button>
-            <span style={{fontSize:"3vh"}}>Hostel Name:</span>
-            <span className="highlight">{details.hostel.name}</span>
+            <span className="highlight">Hostel Name:</span>
+            <span style={{fontSize:"3vh"}}>{details.hostel.name}</span>
 
-            <span style={{fontSize:"3vh"}}>Location:</span>
-            <span className="highlight">{details.hostel.location}</span>
+            <span className="highlight">Location:</span>
+            <span style={{fontSize:"3vh"}}>{details.hostel.location}</span>
 
-            <span style={{fontSize:"3vh"}}>Description:</span>
-            <span className="highlight">{details.hostel.description}</span>
+            <span className="highlight">Description:</span>
+            <span style={{fontSize:"3vh"}}>{details.hostel.description}</span>
 
-            <span style={{fontSize:"3vh"}}>Admin:</span>
-            <span className="highlight">{details.admin.name}</span>
+            <span className="highlight">Admin:</span>
+            <span style={{fontSize:"3vh"}}>{details.admin.name}</span>
 
-            <span style={{fontSize:"3vh"}}>Admin Contact:</span>
-            <span className="highlight">{details.admin.email}</span>
-            <span className="highlight">{details.admin.mobile}</span>
+            <span className="highlight">Admin Contact:</span>
+            <span style={{fontSize:"3vh"}}>{details.admin.email}</span>
+            <span style={{fontSize:"3vh"}}>{details.admin.mobile}</span>
           </div>
         </div>
         :

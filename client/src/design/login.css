@@ -6,7 +6,6 @@
 .login_page{
     display: flex;
     justify-content: center;
-    background-color: rgb(175, 210, 240);
 }
 .top1 span{
     font-size:6vh;
@@ -16,8 +15,16 @@
 .top1 p{
     position: absolute;
     top: 15vh;
-    color: red;
+    text-decoration:underline;
+    text-decoration-color: red;
     font-size: 3vh;
+}
+
+.login_logo{
+    height: 30vh;
+    width: 30vh;
+    position: absolute;
+    top: -3vh;
 }
 .login{
     min-height: 50vh;
@@ -25,11 +32,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    border: 0.4vh solid black;
+    border: 0.7vh solid black;
     border-radius: 3vh;
     position: relative;
     top: 25vh;
-    box-shadow: 0.5vh 0.5vh 1vh rgb(61, 56, 56);
+    box-shadow: 0vh 0vh 3vh rgb(61, 56, 56);
+    background-color: rgb(89, 92, 100);
+    color: aliceblue;
 }
 .loginselect {
     display: flex;
@@ -92,6 +101,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.shortnav{
+    color: inherit;
+}
+.shortnav:visited{
+    color: inherit;
 }
 
 @media (max-width:670px){

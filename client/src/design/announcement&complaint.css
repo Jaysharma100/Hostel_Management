@@ -17,9 +17,10 @@
   justify-content: center;
   height: 7vh;
   width: 20vw;
-  border: 3px groove black;
+  border: 3px groove rgb(241, 234, 234);
   border-radius: 4vh;
   cursor: pointer;
+  color: aliceblue;
 }
 
 .backbtn {
@@ -38,6 +39,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgb(241, 234, 234,0.6);
+  border-radius: 4vh;
 }
 
 .announcement {
@@ -51,6 +54,7 @@
   padding: 10px;
   overflow-wrap: break-word;
   word-break: break-all;
+  background-color: white;
 }
 
 
@@ -149,6 +153,7 @@
   max-width: 25vw;
   cursor: pointer;
   border-radius: 3vh;
+  background-color: aliceblue;
 }
 
 .see_add{
@@ -166,6 +171,7 @@
   /* border: 3px solid black; */
   padding: 2vh;
   border-radius: 3vh;
+  background-color: rgb(241, 234, 234,0.6);
 }
 
 .single-message{
@@ -182,7 +188,7 @@
 }
 
 .addcomplaints{
-  background-color: rgb(71, 144, 209);
+  background-color: rgb(109, 176, 233);
   height: 13vh;
   width: 100%;
   display: flex;
@@ -232,9 +238,15 @@
     width: 90vw;
   }
 
+  .extrafont{
+    font-size: 3vh;
+    width: 30vw;
+  }
+
   .displaycomplaint{
     flex-direction: column;
   }
+
 
   .from {
     width: 90vw;
@@ -263,11 +275,11 @@
     display: flex;
     flex-direction: column;
     gap: 2vh;
-    width: 90vw;
+    width: 98vw;
   }
 
   .comp_reply {
-    width: 98vw;
+    width: 93vw;
     max-height: 50vh;
   }
 

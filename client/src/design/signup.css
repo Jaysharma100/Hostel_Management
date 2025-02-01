@@ -15,6 +15,13 @@
     color: red;
     font-size: 3vh;
 }
+
+.signup_logo{
+    height: 30vh;
+    width: 30vh;
+    position: absolute;
+    top: -7vh;
+}
 .signup{
     min-height: 75vh;
     min-width: 40vw;
@@ -25,7 +32,9 @@
     border-radius: 3vh;
     position: relative;
     top: 15vh;
-    box-shadow: 0.5vh 0.5vh 1vh rgb(61, 56, 56);
+    box-shadow: 0vh 0vh 3vh rgb(61, 56, 56);
+    background-color: rgb(89, 92, 100);
+    color: aliceblue;
 }
 .signupselect {
     display: flex;
@@ -47,6 +56,7 @@
 
 .signupselect span:hover{
     background-color: rgb(204, 223, 144);
+    color: black;
 }
 
 .signupinput{
@@ -111,6 +121,7 @@ input{
     background-color: aliceblue;
     box-shadow: 0.5vh 0.5vh 1vh black;
     overflow: hidden;
+    color: black;
 }
 .nextpage button{
     height: 4vh;
@@ -130,6 +141,7 @@ input{
 
 .inuse{
     background-color: rgb(204, 223, 144);
+    color: black;
 }
 
 .input1{
@@ -156,7 +168,12 @@ input{
     height: 4vh;
     width: 12vw;
 }
-
+.shortnav{
+    color: inherit;
+}
+.shortnav:visited{
+    color: inherit;
+}
 
 @media (max-width:670px){
     .signup{

@@ -6,14 +6,20 @@
     justify-content: space-around;
     position: relative;
     background-color: aliceblue;
+    border-radius: 3vh;
 }
 
 /* Logo styling */
 .logo {
     width: 10%;
-    border: 1px solid red;
 }
-
+.navbar_logo{
+    height: 15vh;
+    width: 15vh;
+    position: relative;
+    top: -3.5vh;
+    left: 2vh;
+}
 /* Routes section */
 .routes {
     width: 70%;
@@ -55,6 +61,7 @@
     align-items: center;
     justify-content: center;
     gap: 1vh;
+    cursor: pointer;
 }
 
 .view img {
@@ -85,8 +92,18 @@
     display: none;
 }
 
+.logout{
+    position:absolute;
+    top: 1.7vh;
+    right: 10vw;
+}
+
 /* Media query for screens below 670px */
 @media screen and (max-width: 670px) {
+    .popup{
+        display: flex;
+        flex-direction: column;
+    }
     .routes {
         display: none; /* Hide routes for smaller screens */
     }
@@ -133,5 +150,11 @@
     .view{
         position: absolute;
         right: 8vh;
+    }
+    .navbar_logo{
+        left: 7vh;
+    }
+    .edit2btn{
+        width: 20vw;
     }
 }

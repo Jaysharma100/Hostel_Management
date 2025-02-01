@@ -10,11 +10,19 @@ import redis from "../utils/redis.js"
 const register=async(req,res)=>{
     try{
        const {name,email,role,password,hostel,mobile,location}=req.body
+
+       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       const isValidEmail =emailRegex.test(email);
+       if(isValidEmail==false){
+        return res.status(400).send({suceess:false,message:"Incorrect email format!"})
+       }
+        
        const userexist=await usermodel.findOne({email});
        if(userexist){
-         console.log("hii")
          return res.status(401).send({suceess:false,message:"user already exist!"})
         }
+
+        const avatarPath = req.file ? 'avatars/' + req.file.filename : 'avatars/default_avatar.jpg';
 
        const hashpassword=await bcryptjs.hashSync(password,10)
 
@@ -24,7 +32,7 @@ const register=async(req,res)=>{
         role:role,
         mobile:mobile,
         password:hashpassword,
-        avatar:'avatars/'+ req.file.filename,
+        avatar:avatarPath,
        })
 
        await newuser.save()
@@ -52,6 +60,11 @@ const register=async(req,res)=>{
 const login=async(req,res)=>{
     try {
         const {email,password}=req.body
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValidEmail =emailRegex.test(email);
+        if(isValidEmail==false){
+          return res.status(400).send({suceess:false,message:"Incorrect email format!"})
+        }
         
         const userexist=await usermodel.findOne({email});
         if(!userexist){
@@ -224,6 +237,12 @@ const updatehostel=async(req,res)=>{
 const updateprofile = async (req, res) => {
   const { name,email,newemail } = req.body;
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isValidEmail =emailRegex.test(email);
+  if(isValidEmail==false){
+    return res.status(400).send({suceess:false,message:"Incorrect email format!"})
+  }
+
   try {
       const user = await usermodel.findOne({ email });
 
@@ -233,7 +252,7 @@ const updateprofile = async (req, res) => {
 
       if (req.file) {
           // Remove old avatar if exists
-          if (user.avatar && fs.existsSync(user.avatar)) {
+          if (user.avatar && fs.existsSync(user.avatar) && user.avatar!=="avatars/default_avatar.jpg") {
               fs.unlinkSync(user.avatar);
           }
           user.avatar = `avatars/${req.file.filename}`;
@@ -359,7 +378,7 @@ const announcement = async (req, res) => {
         await annDoc.save();
         return res.status(200).json({ announcements: annDoc.messages });
       } else {
-        return res.status(404).json({ message: "No announcements found for this email" });
+        return res.status(200).json({ announcements:[]});
       }
     }
 
@@ -384,7 +403,28 @@ const complaints_reply=async(req,res)=>{
     }
     const comp_reply=await complaint_replymodel.findOne({To});
     
-    if(!comp_reply){
+    if(!comp_reply && message){
+      const newComplaint = new complaint_replymodel({
+        To: To,
+        messages: [{
+          email: from,
+          name: req.body.name || from,
+          messages: [{
+            text: message,
+            type: type,
+            createdAt: new Date()
+          }]
+        }]
+      });
+      await newComplaint.save();
+      const hosteler = newComplaint.messages.find(h => h.email === from);
+      return res.status(200).json({
+        success: true,
+        message: "Complaint registered successfully",
+        comp_reply: hosteler ? hosteler.messages.reverse() : []
+      });
+    }
+    else if(!comp_reply){
       return res.status(404).json({ message: "No Complaints found for You!" });
     }
     
@@ -409,7 +449,6 @@ const complaints_reply=async(req,res)=>{
       });
     }
     else{
-      
       const hosteler = comp_reply.messages.find((hosteler) =>
         hosteler.email === from
       );

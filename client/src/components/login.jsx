@@ -1,5 +1,8 @@
 import { useState } from "react"
 import {Link,useNavigate} from "react-router-dom"
+import backgroundImage from "../assets/background.jpg";
+import logo from "../assets/HMA_logo.png";
+import login_bg from "../assets/Login_bg.png"
 
 const Login=()=>{
     const navigate=useNavigate();
@@ -34,9 +37,35 @@ const Login=()=>{
     };
 
     return(
+    
     <div className="login_page">
+        <img src={logo} className="login_logo" alt="" style={{zIndex:"2"}}/>
+        <div style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        zIndex: -1,
+        }}></div>
+        <div style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundImage: `url(${login_bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        opacity:"0.43",
+        zIndex: 0,
+        }}></div>
         <div className="top1">
-            <span>Login...</span>
             <p>{error}</p>
         </div>
         <div className="login">
@@ -48,7 +77,7 @@ const Login=()=>{
             </div>
             <div className="goto">
                 <button onClick={handlelogin}>Login</button>
-                <p>New here? <Link to="/signup">Signup</Link></p>
+                <p>New here? <Link to="/signup" className="shortnav">Signup</Link></p>
             </div>
         </div>
     </div>

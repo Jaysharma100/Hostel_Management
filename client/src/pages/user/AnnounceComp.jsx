@@ -4,6 +4,7 @@
   import Loader from "../../components/loader.jsx";
   import "../../design/loader.css";
   import "../../design/AnnounceComp.css"
+  import backgroundImage from "../../assets/background.jpg";
 
   const AnnounceComp = ({ user }) => {
     const [admin, setAdmin] = useState(null);
@@ -52,6 +53,7 @@
             const annData = await annResponse.json();
 
             if (annResponse.status === 200) {
+              if(!annData.announcements==[])
               setAnnouncements(annData.announcements.messages);
               setShowthis1(1);
             } else {
@@ -132,6 +134,18 @@
     return (
       <>
         <Navbar selected="3" user={user} />
+        <div style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        zIndex: -1,
+        }}></div>
         <div className="announcement-container">
           {showthis1 === 0 ? (
             msg ? (
@@ -143,13 +157,13 @@
             <div className="anncomp addtoanncomp">
               <div className="selecttop">
                 <span
-                  className={`selectone edit2btn ${openthis1 === 0 ? "addcolor" : ""}`}
+                  className={`selectone edit2btn extrafont ${openthis1 === 0 ? "addcolor" : ""}`}
                   onClick={() => setOpenthis1(0)}
                 >
                   Announcement
                 </span>
                 <span
-                  className={`selectone edit2btn ${openthis1 === 1 ? "addcolor" : ""}`}
+                  className={`selectone edit2btn extrafont ${openthis1 === 1 ? "addcolor" : ""}`}
                   onClick={() => setOpenthis1(1)}
                 >
                   Complaints
@@ -157,18 +171,22 @@
               </div>
               {openthis1 === 0 ? (
                 <div className="displayann">
-                  <div className="past-announcements">
-                    {announcements.map((ann, index) => (
-                      <div key={index} className="announcement">
-                        <span className="timestamp message-timestamp">
-                          {ann.createdAt && new Date(ann.createdAt).toLocaleString()}
-                        </span>
-                        <span>{ann.text}</span>
-                      </div>
-                    ))}
-                    <div ref={messagesEndRef} />
-                  </div>
-                </div>
+                  {announcements.length === 0 ? (
+                    <p>No announcements right now.</p>
+                  ) : (
+                    <div className="past-announcements">
+                      {announcements.map((ann, index) => (
+                        <div key={index} className="announcement">
+                          <span className="timestamp message-timestamp">
+                            {ann.createdAt && new Date(ann.createdAt).toLocaleString()}
+                          </span>
+                          <span>{ann.text}</span>
+                        </div>
+                      ))}
+                      <div ref={messagesEndRef} />
+                    </div>
+                  )}
+                </div>              
               ) : (
               <div className="see_add addtosee_add">
                 <div className="comp_reply ">
@@ -193,7 +211,7 @@
                     placeholder="Write your complaint..."
                   ></textarea>
                   <button className="edit2btn edit2btnext" onClick={handleComplaintReply}>
-                    Submit Complaint
+                    Submit
                   </button>
                 </div>
               </div>

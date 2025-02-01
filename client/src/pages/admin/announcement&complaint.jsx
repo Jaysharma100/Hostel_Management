@@ -4,6 +4,7 @@ import "../../design/loader.css"
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "../../design/announcement&complaint.css";
+import backgroundImage from "../../assets/background.jpg";
 
 const Anncomp = ({user}) => {
   const [openthis1, setopenthis1] = useState(0);
@@ -128,6 +129,19 @@ const Anncomp = ({user}) => {
   return (
     <>
       <div className="anncomp">
+        <div style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundImage: `url(${backgroundImage})`,
+        opacity:"0.7",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        zIndex: -1,
+        }}></div>
         <div className="selecttop">
           <span
             className={`selectone edit2btn ${openthis1 ? " " : "addcolor"}`}

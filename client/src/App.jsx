@@ -5,7 +5,7 @@ import Login from './components/login.jsx'
 import Signup from './components/signup.jsx'
 import Home from './pages/home.jsx'
 import Privateroute from './components/privateroute.jsx'
-import User from './pages/user/user.jsx'
+import Yourroom from './pages/user/yourroom.jsx'
 import Admin from './pages/admin/admin.jsx'
 import Hostels from './pages/user/hostels.jsx'
 import Alert from './pages/user/AnnounceComp.jsx'
@@ -32,7 +32,7 @@ function App() {
       />
       <Route
           exact path="/your_room"
-          element={<Privateroute path="/your_room"><User /></Privateroute>}
+          element={<Privateroute path="/your_room"><Yourroom /></Privateroute>}
       />
       <Route
           exact path="/admin"
