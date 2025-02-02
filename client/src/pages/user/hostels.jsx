@@ -4,6 +4,7 @@
   import Navbar from "../../components/navbar"
   import "../../design/hostels.css"
   import backgroundImage from "../../assets/background.jpg";
+  import loading from "../../assets/loading_gif.gif"
   import PropTypes from "prop-types"
 
 
@@ -18,6 +19,7 @@
     const [filteredHostels, setFilteredHostels] = useState(null);
     const [bookingRoomDetails, setBookingRoomDetails] = useState(null);
     const [bookingTimer, setBookingTimer] = useState(300); // 300 seconds = 5 minutes
+    const [isloading,setisloading]=useState(false);
     const [email,setemail]=useState(user.email);
     
     
@@ -121,6 +123,7 @@
 
     const handlebookclick=async()=>{
       seterror(null);
+      setisloading(true);
       const bodydata={
       email:details.admin.email,
       floorNumber:selectedFloor,
@@ -156,9 +159,11 @@
       setBookingRoomDetails(null);
       console.log(err);
       }
+      setisloading(false);
     }
 
     const handleconfirmbook=async()=>{
+      setisloading(true);
       const bodydata={
         email:details.admin.email,
         floorNumber:selectedFloor,
@@ -188,7 +193,7 @@
        catch(err){
         console.log(err);
        }
-
+       setisloading(false);
     }
 
     return (
@@ -355,16 +360,20 @@
                           View Hostelers
                         </button>
                         <span>{room.capacity - room.hostelers.length} seats remaining</span>
-                        {room.hostelers.length < room.capacity && ( // Only show if room is not full
-                          <button
-                            className="book-btn"
-                            onClick={() => {
-                              handlebookclick();
-                              setBookingRoomDetails(room);
-                            }}
-                          >
-                            Book
-                          </button>
+                        {room.hostelers.length < room.capacity && (
+                          isloading ? (
+                            <img src={loading} alt="Loading..." className="loading-gif" style={{ height: "10vh", width: "10vh" }} />
+                          ) : (
+                            <button
+                              className="book-btn"
+                              onClick={() => {
+                                handlebookclick();
+                                setBookingRoomDetails(room);
+                              }}
+                            >
+                              Book
+                            </button>
+                          )
                         )}
                       </>
                     )}
@@ -440,14 +449,17 @@
                 <p>No roommates currently.</p>
               )}
             </div>
+            {isloading ? <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} />
+            :
             <button
               className="confirm-btn"
               onClick={() => {
                 handleconfirmbook(  )
               }}
-            >
+              >
               Confirm Booking
             </button>
+            }
           </div>
           <span>{error}</span>
         </div>

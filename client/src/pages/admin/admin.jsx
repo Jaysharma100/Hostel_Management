@@ -5,6 +5,7 @@ import "../../design/admin.css"
 import { useNavigate } from "react-router-dom"
 import { useState ,useEffect} from "react";
 import backgroundImage from "../../assets/background.jpg";
+import loading from "../../assets/loading_gif.gif"
 
 const Admin = ({user}) => {
   const navigate=useNavigate();
@@ -16,6 +17,7 @@ const Admin = ({user}) => {
   const [imgchange,setimgchange]=useState(null);
   const [wantto1,setwantto1]=useState(0);
   const [isopen,setisopen]=useState(0);
+  const [isloading,setisloading]=useState(false);
   const {name,email,avatar}=user;
   
   //new hostel details
@@ -106,6 +108,7 @@ const Admin = ({user}) => {
   }
 
   const handleupdateHD=async()=>{
+    setisloading(true);
     const body={
       name:hostelname,
       email:email,
@@ -132,10 +135,11 @@ const Admin = ({user}) => {
     }catch(err){
       seterror(err);
     }
+    setisloading(false);
   }
 
   const updateprofile=async()=>{
-    
+    setisloading(true);
     if((ogname!==newname || ogemail!==newemail) && confirm!=="CONFIRM"){
       setconfirm("");
       seterror("Cannot Proceed! Type CONFIRM correctly");
@@ -176,6 +180,7 @@ const Admin = ({user}) => {
     catch(err){
       seterror(err.message || "An unexpected error occurred");
     }
+    setisloading(false);
   }
 
   const handlegoback=(e)=>{
@@ -335,7 +340,10 @@ const Admin = ({user}) => {
             <input type="text" value={hostelname} onChange={(e)=>sethostelname(e.target.value)}/>
             <span>Description:</span>
             <textarea className="description" value={description} onChange={(e)=>setdescription(e.target.value)}></textarea>
+            <div className="bottomsave">
             {(oghostelname!==hostelname || ogdescription!==description) && <button className="edit2btn edit2btnext" onClick={handleupdateHD}>Save Changes</button>}
+            {isloading && <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} />}
+            </div>
             <span>{error? error.toString():""}</span>
           </div>
         </div>
@@ -382,7 +390,10 @@ const Admin = ({user}) => {
               <span>{`Type "CONFIRM"`}</span>
               <input type="text" value={confirm} onChange={(e)=>setconfirm(e.target.value)} />
              </>}
+             <div className="bottomsave">
             {(ogname!==newname || ogemail!==newemail || imgchange) && <button className="edit2btn edit2btnext" onClick={updateprofile}>Save Changes</button>}
+            {isloading && <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} />}
+             </div>
             <span>{error? error.toString():""}</span>
           </div>
         </div>

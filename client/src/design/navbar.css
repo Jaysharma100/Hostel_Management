@@ -7,9 +7,10 @@
     position: relative;
     background-color: aliceblue;
     border-radius: 3vh;
+    position: sticky;
+    top: 0;
 }
 
-/* Logo styling */
 .logo {
     width: 10%;
 }
@@ -20,7 +21,7 @@
     top: -3.5vh;
     left: 2vh;
 }
-/* Routes section */
+
 .routes {
     width: 70%;
     height: 8vh;
@@ -29,7 +30,6 @@
     align-items: center;
 }
 
-/* Link styles */
 .linkto {
     display: flex;
     height: 70%;
@@ -40,21 +40,18 @@
     box-shadow: 0 0 10px black;
 }
 
-/* Link hover effect */
 .linkto:hover {
     box-shadow: inset 0 -2px 1px rgb(25, 74, 25);
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
 
-/* Selected link styling */
 .selected {
     background-color: rgb(187, 222, 166);
     color: black;
     border: 0.6vh solid rgba(0, 0, 0, 0.714);
 }
 
-/* View section for profile */
 .view {
     width: 15%;
     display: flex;
@@ -98,19 +95,24 @@
     right: 10vw;
 }
 
-/* Media query for screens below 670px */
+.bottomsave{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media screen and (max-width: 670px) {
     .popup{
         display: flex;
         flex-direction: column;
     }
     .routes {
-        display: none; /* Hide routes for smaller screens */
+        display: none;
     }
     .increment{
         height: 40vh;
     }
-    /* Hamburger icon visible on small screens */
+
     .hamburger {
         display: flex;
     }
@@ -119,7 +121,6 @@
         justify-content: flex-start;
     }
 
-    /* Dropdown menu when hamburger is clicked */
     .dropdown-menu {
         position: absolute;
         top: 13vh;

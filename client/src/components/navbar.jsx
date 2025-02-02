@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import "../design/navbar.css"
 import logo from "../assets/HMA_logo.png"
+import loading from "../assets/loading_gif.gif"
 
 const Navbar = ({selected,user}) => {
 
@@ -12,6 +13,7 @@ const Navbar = ({selected,user}) => {
   const [confirm,setconfirm]=useState(null);
   const [error,seterror]=useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isloading,setisloading]=useState(false);
 
   const [ogavatar,setogavatar]=useState(null);
   const [ogname,setogname]=useState(null);
@@ -71,7 +73,7 @@ const Navbar = ({selected,user}) => {
   }
 
   const updateprofile=async()=>{
-    
+   setisloading(true);
    if((ogname!==newname || ogemail!==newemail || ogmobile!==newmobile) && confirm!=="CONFIRM"){
      setconfirm("");
      seterror("Cannot Proceed! Type CONFIRM correctly");
@@ -116,6 +118,7 @@ const Navbar = ({selected,user}) => {
    catch(err){
      seterror(err.message || "An unexpected error occurred");
    }
+   setisloading(false);
  }
 
   return (
@@ -195,7 +198,10 @@ const Navbar = ({selected,user}) => {
               <span>{`Type "CONFIRM"`}</span>
               <input type="text" value={confirm} onChange={(e)=>setconfirm(e.target.value)} />
              </>}
+             <div className="bottomsave">
             {(ogname!==newname || ogemail!==newemail || newavatar || newmobile!=ogmobile) && <button className="edit2btn edit2btnext" onClick={updateprofile}>Save Changes</button>}
+            {isloading && <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} />}
+             </div>
             <span>{error? error.toString():""}</span>
           </div>
         </div>

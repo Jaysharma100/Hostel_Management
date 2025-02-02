@@ -20,6 +20,11 @@
     font-size: 3vh;
 }
 
+.loading-gif{
+    height: 10vh;
+    width: 10vh;
+}
+
 .login_logo{
     height: 30vh;
     width: 30vh;

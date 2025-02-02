@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "../../design/announcement&complaint.css";
 import backgroundImage from "../../assets/background.jpg";
+import loading from "../../assets/loading_gif.gif"
 
 const Anncomp = ({user}) => {
   const [openthis1, setopenthis1] = useState(0);
@@ -14,6 +15,7 @@ const Anncomp = ({user}) => {
   const [reply,setreply]=useState(null);
   const [selecthosteler,setselecthosteler]=useState(null);
   const [email,setemail]=useState(user.email);
+  const [isloading,setisloading]=useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -83,6 +85,7 @@ const Anncomp = ({user}) => {
   };
 
   const handleAnnouncement = async () => {
+    setisloading(true);
     if (!newAnnouncement.trim()) return;
     try {
       const response = await fetch("http://localhost:4000/api/auth/announcement", {
@@ -102,9 +105,11 @@ const Anncomp = ({user}) => {
     } catch (err) {
       console.error(err);
     }
+    setisloading(false);
   };
   
   const handlereply=async()=>{
+    setisloading(true);
     // if (!reply.trim()) return;
     try {
       const response = await fetch("http://localhost:4000/api/auth/complaints_reply", {
@@ -124,6 +129,7 @@ const Anncomp = ({user}) => {
     } catch (err) {
       console.error(err);
     }
+    setisloading(false);
   };
 
   return (
@@ -179,7 +185,7 @@ const Anncomp = ({user}) => {
                 value={newAnnouncement}
                 onChange={(e) => setNewAnnouncement(e.target.value)}
               />
-              <button onClick={handleAnnouncement}>Announce!</button>
+              {isloading ? <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} /> : <button onClick={handleAnnouncement}>Announce!</button>}
             </div>
           </div>
         ) : (
@@ -216,7 +222,9 @@ const Anncomp = ({user}) => {
               {selecthosteler &&
               <div className="addcomplaints">
                 <textarea className="complaintadd" value={reply} onChange={(e)=>{setreply(e.target.value)}}></textarea>
-                <button className="edit2btn edit2btnext" onClick={handlereply}>Reply!</button>
+                <div className="bottomsave">
+                {isloading ? <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} /> : <button className="edit2btn edit2btnext" onClick={handlereply}>Reply!</button>}
+                </div>
               </div>
               }
             </div>

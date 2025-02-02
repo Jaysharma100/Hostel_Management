@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "../../design/editroom.css";
 import { useNavigate } from "react-router-dom";
 import backgroundImage from "../../assets/background.jpg";
+import loading  from "../../assets/loading_gif.gif"
 
 const Editroom = ({user}) => {
   const navigate=useNavigate();
@@ -21,6 +22,7 @@ const Editroom = ({user}) => {
   const [ogemail,setogemail]=useState(email);
   const [error,seterror]=useState(null);
   const [error2,seterror2]=useState(null);
+  const [isloading,setisloading]=useState(false);
 
   const [newroom,setnewroom]=useState("");
   const [newfloor,setnewfloor]=useState("");
@@ -80,6 +82,7 @@ const Editroom = ({user}) => {
   }
 
   const handleaddroom= async()=>{
+    setisloading(true);
     const response=await fetch(`http://localhost:4000/api/auth/addrooms`,{
       method:'POST',
       headers: {
@@ -96,6 +99,7 @@ const Editroom = ({user}) => {
     else{
       seterror(data.message);
     }
+    setisloading(false);
   }
 
   const handlefind = async () => {
@@ -128,6 +132,7 @@ const Editroom = ({user}) => {
   };
 
   const handleroomupdate=async()=>{
+    setisloading(true);
     const bodydata = {
       email: ogemail,
       ogfloor: findfloor,
@@ -159,6 +164,7 @@ const Editroom = ({user}) => {
     catch(err){
       seterror(err.message);
     }
+    setisloading(false);
   }
   
 
@@ -325,9 +331,12 @@ const Editroom = ({user}) => {
               </tbody>
             </table>
           </div>
+          <div className="bottomsave">
           <button className="edit2btn" style={{margin:"5vh 0vh 0vh 0vh"}} onClick={()=>{handleaddroom()}}>
             ADD to Hostel
           </button>
+          {isloading && <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} />}
+          </div>
         </div>
       )}
 
@@ -425,6 +434,7 @@ const Editroom = ({user}) => {
                 Add Hosteler
               </button>
             </div>
+            <div className="bottomsave">
             <button
               className="edit2btn"
               onClick={() => {
@@ -439,6 +449,8 @@ const Editroom = ({user}) => {
             >
               Save Changes
             </button>
+            {isloading && <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} />}
+            </div>
             <span>{error}</span>
           </div>
         </div>
