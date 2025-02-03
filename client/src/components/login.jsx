@@ -19,7 +19,7 @@ const Login = () => {
         const bodydata = { email, password };
 
         try {
-            const response = await fetch(`http://localhost:4000/api/auth/login`, {
+            const response = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(bodydata),
@@ -29,7 +29,8 @@ const Login = () => {
 
             if (response.status === 200) {
                 localStorage.setItem("verification_token", resdata.token);
-                navigate("/");
+                const path=resdata.path;
+                navigate(path);
             } else {
                 seterror(resdata.message);
             }

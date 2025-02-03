@@ -83,7 +83,7 @@ const Editroom = ({user}) => {
 
   const handleaddroom= async()=>{
     setisloading(true);
-    const response=await fetch(`http://localhost:4000/api/auth/addrooms`,{
+    const response=await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/addrooms`,{
       method:'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -108,7 +108,7 @@ const Editroom = ({user}) => {
       floor: findfloor,
       room: findroom,
     };
-    const response = await fetch(`http://localhost:4000/api/auth/findroom`, {
+    const response = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/findroom`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ const Editroom = ({user}) => {
     };
   
     try{
-      const response=await fetch(`http://localhost:4000/api/auth/updateroom`,{
+      const response=await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/updateroom`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

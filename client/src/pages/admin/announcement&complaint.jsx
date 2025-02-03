@@ -21,7 +21,7 @@ const Anncomp = ({user}) => {
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/auth/announcement",{
+        const response = await fetch("https://hostel-management-app-cx6f.onrender.com/api/auth/announcement",{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const Anncomp = ({user}) => {
 
     const fetchcomplaints_reply = async()=>{
       try {
-        const response = await fetch("http://localhost:4000/api/auth/complaints_reply",{
+        const response = await fetch("https://hostel-management-app-cx6f.onrender.com/api/auth/complaints_reply",{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +88,7 @@ const Anncomp = ({user}) => {
     setisloading(true);
     if (!newAnnouncement.trim()) return;
     try {
-      const response = await fetch("http://localhost:4000/api/auth/announcement", {
+      const response = await fetch("https://hostel-management-app-cx6f.onrender.com/api/auth/announcement", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ const Anncomp = ({user}) => {
     setisloading(true);
     // if (!reply.trim()) return;
     try {
-      const response = await fetch("http://localhost:4000/api/auth/complaints_reply", {
+      const response = await fetch("https://hostel-management-app-cx6f.onrender.com/api/auth/complaints_reply", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

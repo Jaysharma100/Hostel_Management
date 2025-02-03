@@ -4,6 +4,8 @@ import PropTypes from "prop-types"
 import "../design/navbar.css"
 import logo from "../assets/HMA_logo.png"
 import loading from "../assets/loading_gif.gif"
+import Loader from "../components/loader"
+import "../design/loader.css"
 
 const Navbar = ({selected,user}) => {
 
@@ -40,7 +42,7 @@ const Navbar = ({selected,user}) => {
   },[user,ogavatar,ogname,ogemail,ogmobile])
 
   if(!user){
-   return <>Loading....</>
+   return <Loader/>;
   }
 
   const toggleDropdown = () => {
@@ -92,7 +94,7 @@ const Navbar = ({selected,user}) => {
    bodydata.append('avatar',newavatar);
 
    try{
-     const response=await fetch(`http://localhost:4000/api/auth/updateprofile`,{
+     const response=await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/updateprofile`,{
        method: 'PATCH',
        body:bodydata
      })
@@ -134,7 +136,7 @@ const Navbar = ({selected,user}) => {
             <div className={`linkto ${option==="4"?"selected":""}`} onClick={()=> handleclick({opt:"4"})}>more</div>
         </div>
         <div className="view" onClick={()=>setopenthis1(1)}>
-            <img src={`http://localhost:4000/${ogavatar}`} alt="" />
+            <img src={`https://hostel-management-app-cx6f.onrender.com/${ogavatar}`} alt="" />
             <span>View<br></br>Profile</span>
         </div>
 
@@ -173,7 +175,7 @@ const Navbar = ({selected,user}) => {
           </div>
           <div className="popupdetails adminpopcustom">
             <div className="avatarchange">
-              <img className="avatarimg" src={`http://localhost:4000/${ogavatar}`} alt="" />
+              <img className="avatarimg" src={`https://hostel-management-app-cx6f.onrender.com/${ogavatar}`} alt="" />
               <button className="edit2btn edit2btnext" onClick={()=>setopenthis2(1)}>Edit</button>
             </div>
             <div className={`${openthis2?"":"hide"} avatarchange`}>

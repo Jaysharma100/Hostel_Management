@@ -57,7 +57,7 @@ const Signup = () => {
         formdata.append("mobile", mobile);
         formdata.append("location", location);
 
-        const response = await fetch(`http://localhost:4000/api/auth/signup`, {
+        const response = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/signup`, {
             method: "POST",
             body: formdata,
         });

@@ -24,7 +24,7 @@ const Privateroute = ({ path, children }) => {
       }
 
       try {
-        const response = await fetch("http://localhost:4000/api/auth/verify", {
+        const response = await fetch("https://hostel-management-app-cx6f.onrender.com/api/auth/verify", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ const Privateroute = ({ path, children }) => {
         if (response.status === 200) {
           const data = await response.json();
           if(!data.redirect){
-          const res=await fetch("http://localhost:4000/api/auth/finduser",{
+          const res=await fetch("https://hostel-management-app-cx6f.onrender.com/api/auth/finduser",{
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const Privateroute = ({ path, children }) => {
     return <Loader/>
   }
 
-  return isAuthorized ? ((user || path==="/login" || path==="/signup")? React.cloneElement(children, { user }): "loading") : null;
+  return isAuthorized ? ((user || path==="/login" || path==="/signup")? React.cloneElement(children, { user }): <Loader/>) : null;
 };
 
 Privateroute.propTypes = {

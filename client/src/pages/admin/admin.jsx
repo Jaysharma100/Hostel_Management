@@ -41,7 +41,7 @@ const Admin = ({user}) => {
         email:email,
       }
       try{
-        const response=await fetch(`http://localhost:4000/api/auth/findhostel`,{
+        const response=await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/findhostel`,{
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ const Admin = ({user}) => {
       description:description,
     }
     try{
-      const response=await fetch(`http://localhost:4000/api/auth/updatehostel`,{
+      const response=await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/updatehostel`,{
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ const Admin = ({user}) => {
     bodydata.append('avatar',imgchange);
 
     try{
-      const response=await fetch(`http://localhost:4000/api/auth/updateprofile`,{
+      const response=await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/updateprofile`,{
         method: 'PATCH',
         body:bodydata
       })
@@ -226,7 +226,7 @@ const Admin = ({user}) => {
           <button className={hide2?"edit2btn profeditbtn hide":"edit2btn profeditbtn"} onClick={()=>setadmin_popup1(1)}>Hostel Details</button>
         </div>
         <div className="profile" onMouseEnter={()=>sethide1(0)} onMouseLeave={()=>sethide1(1)}>
-          <img className="avatarimg" src={`http://localhost:4000/${ogavatar}`} alt="" />
+          <img className="avatarimg" src={`https://hostel-management-app-cx6f.onrender.com/${ogavatar}`} alt="" />
           <div className="editopt">
             <span>{ogname}</span>
             <button className={hide1?"edit2btn edit2btnext profeditbtn hide":"edit2btn profeditbtn edit2btnext"} onClick={()=>setadmin_popup2(1)} >Edit Profile</button>
@@ -367,7 +367,7 @@ const Admin = ({user}) => {
           </div>
           <div className="popupdetails adminpopcustom">
             <div className="avatarchange">
-              <img className="avatarimg" src={`http://localhost:4000/${ogavatar}`} alt="" />
+              <img className="avatarimg" src={`https://hostel-management-app-cx6f.onrender.com/${ogavatar}`} alt="" />
               <button className="edit2btn edit2btnext" onClick={()=>setwantto1(1)}>Edit</button>
             </div>
             <div className={`${wantto1?"":"hide"} avatarchange`}>

@@ -37,7 +37,7 @@
     
     const handlehostelfetch=async()=>{
       try{  
-        const response=await fetch('http://localhost:4000/api/auth/hostelfetch',{
+        const response=await fetch('https://hostel-management-app-cx6f.onrender.com/api/auth/hostelfetch',{
           method:'GET',
         })
 
@@ -131,7 +131,7 @@
       isopen:bookingPopupVisible
       }
       try{
-      const response=await fetch('http://localhost:4000/api/auth/lockroom',{
+      const response=await fetch('https://hostel-management-app-cx6f.onrender.com/api/auth/lockroom',{
       method:'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -171,7 +171,7 @@
         user_email:email
        }
        try{
-       const response=await fetch('http://localhost:4000/api/auth/bookroom',{
+       const response=await fetch('https://hostel-management-app-cx6f.onrender.com/api/auth/bookroom',{
         method:'POST',
         headers: {
           'Content-Type': 'application/json',

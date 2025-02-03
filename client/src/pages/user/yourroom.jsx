@@ -22,7 +22,7 @@ const User = ({ user }) => {
         justcheck: 1,
       };
       try {
-        const response = await fetch(`http://localhost:4000/api/auth/bookroom`, {
+        const response = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/bookroom`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const User = ({ user }) => {
 
           const hostelerDetails = [];
           for (const hosteler of otherHostelers) {
-            const userResponse = await fetch(`http://localhost:4000/api/auth/finduser`,{
+            const userResponse = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/finduser`,{
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const User = ({ user }) => {
       floor:floor
     };
     try {
-      const response = await fetch(`http://localhost:4000/api/auth/leaveroom`, {
+      const response = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/leaveroom`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

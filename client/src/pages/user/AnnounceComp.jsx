@@ -24,7 +24,7 @@
         };
 
         try {
-          const response = await fetch(`http://localhost:4000/api/auth/bookroom`, {
+          const response = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/bookroom`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -42,7 +42,7 @@
               justcheck: 1,
             };
 
-            const annResponse = await fetch(`http://localhost:4000/api/auth/announcement`, {
+            const annResponse = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/announcement`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -65,7 +65,7 @@
               from: user.email,
             };
 
-            const compResponse = await fetch(`http://localhost:4000/api/auth/complaints_reply`,{
+            const compResponse = await fetch(`https://hostel-management-app-cx6f.onrender.com/api/auth/complaints_reply`,{
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -101,7 +101,7 @@
     const handleComplaintReply = async () => {
       if (!complaint.trim()) return;
       try {
-        const response = await fetch("http://localhost:4000/api/auth/complaints_reply", {
+        const response = await fetch("https://hostel-management-app-cx6f.onrender.com/api/auth/complaints_reply", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
