@@ -75,7 +75,7 @@ const login=async(req,res)=>{
         if(!ispasswordvalid){
             return res.status(404).send({suceess:false,message:"Invalid Credentials! Try again"})
         }
-        const path=userexist.role==="admin"?"/admin":"/youroom";
+        const path=userexist.role==="admin"?"/admin":"/your_room";
         const token=jwt.sign({user:userexist},process.env.JWT_SECRET,{expiresIn:'1d'});
         res.status(200).send({success:true,message:"Login succesfull",token,user:userexist,path:path})
     } 
