@@ -204,7 +204,7 @@ const Admin = ({user}) => {
   }
 
   const handleDownload = () => {
-    window.open(`http://localhost:4000/api/auth/download-excel?email=${encodeURIComponent(ogemail)}`, "_blank");
+    window.open(`https://hostel-management-app-cx6f.onrender.com/api/auth/download-excel?email=${encodeURIComponent(ogemail)}`, "_blank");
   };
 
   return (
