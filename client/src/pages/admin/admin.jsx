@@ -203,6 +203,10 @@ const Admin = ({user}) => {
     setisopen(0);
   }
 
+  const handleDownload = () => {
+    window.open(`http://localhost:4000/api/auth/download-excel?email=${encodeURIComponent(ogemail)}`, "_blank");
+  };
+
   return (
     <>
     <div className={`main ${(admin_popup1 || admin_popup2) ? "blurred" : ""}`}>
@@ -240,6 +244,11 @@ const Admin = ({user}) => {
         <div className="anncomp gotoedit" onClick={()=>navigate("/announcement&complaint")}>
           <span>Announcements<br></br>& Complaints</span>
         </div>
+      </div>
+      <div className="downloadit">
+        <button onClick={handleDownload} className="download-btn edit2btn">
+          Download Hostel_data Excel sheet
+        </button>
       </div>
       <div className="details">
         <div className="filter">
@@ -341,7 +350,7 @@ const Admin = ({user}) => {
             <span>Description:</span>
             <textarea className="description" value={description} onChange={(e)=>setdescription(e.target.value)}></textarea>
             <div className="bottomsave">
-            {(oghostelname!==hostelname || ogdescription!==description) && <button className="edit2btn edit2btnext" onClick={handleupdateHD}>Save Changes</button>}
+            {(oghostelname!==hostelname || ogdescription!==description) && <button className="edit2btn edit2btnext" onClick={handleupdateHD}>{isloading?"Saving..":"Save Changes"}</button>}
             {isloading && <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} />}
             </div>
             <span>{error? error.toString():""}</span>
@@ -391,7 +400,7 @@ const Admin = ({user}) => {
               <input type="text" value={confirm} onChange={(e)=>setconfirm(e.target.value)} />
              </>}
              <div className="bottomsave">
-            {(ogname!==newname || ogemail!==newemail || imgchange) && <button className="edit2btn edit2btnext" onClick={updateprofile}>Save Changes</button>}
+            {(ogname!==newname || ogemail!==newemail || imgchange) && <button className="edit2btn edit2btnext" onClick={updateprofile}>{isloading?"Saving..":"Save Changes"}</button>}
             {isloading && <img src={loading} alt="Loading..." className="loading-gif" style={{height:"10vh",width:"10vh"}} />}
              </div>
             <span>{error? error.toString():""}</span>

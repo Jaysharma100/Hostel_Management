@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken"
 import fs from "fs"
 import complaint_replymodel from "../models/complaint.js"
 import redis from "../utils/redis.js"
+import ExcelJS from "exceljs"
 
 const register=async(req,res)=>{
     try{
@@ -693,4 +694,81 @@ const leaveroom=async(req,res)=>{
   }
 }
 
-export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom,announcement,complaints_reply,hostelfetch,measureMONGODB_time,measureRedisTime,lockroom,bookroom,leaveroom}
+const downloadexcel=async (req,res)=>{
+  try {
+    const { email } = req.query;
+    if (!email) {
+      return res.status(400).json({ message: "Admin email is required" });
+    }
+
+    const hostel = await hostelmodel.findOne({ email }).lean();
+    if (!hostel) {
+      return res.status(404).json({ message: "Hostel not found" });
+    }
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Hostel Data");
+
+    worksheet.columns = [
+      { header: "Hostel Name", key: "hostel_name", width: 20 },
+      { header: "Email", key: "email", width: 25 },
+      { header: "Location", key: "location", width: 20 },
+      { header: "Floor", key: "floor", width: 10 },
+      { header: "Room Number", key: "room_number", width: 15 },
+      { header: "Capacity", key: "capacity", width: 10 },
+      { header: "Hosteler Email", key: "hosteler_email", width: 25 },
+      { header: "Joined At", key: "joined_at", width: 20 },
+    ];
+
+    let startRow = 2; // Start from row 2 (row 1 is the header)
+    let totalRows = 0;
+
+    Object.entries(hostel.floors).forEach(([floor, rooms]) => {
+      rooms.forEach((room, roomIndex) => {
+        if (room.hostelers.length === 0) {
+          worksheet.addRow({
+            hostel_name: roomIndex === 0 ? hostel.name : "",
+            email: roomIndex === 0 ? hostel.email : "",
+            location: roomIndex === 0 ? hostel.location : "",
+            floor: roomIndex === 0 ? floor : "",
+            room_number: room.number,
+            capacity: room.capacity,
+            hosteler_email: "NA",
+            joined_at: "NA",
+          });
+          totalRows++;
+        } else {
+          room.hostelers.forEach((hosteler, hostelerIndex) => {
+            worksheet.addRow({
+              hostel_name: roomIndex === 0 && hostelerIndex === 0 ? hostel.name : "",
+              email: roomIndex === 0 && hostelerIndex === 0 ? hostel.email : "",
+              location: roomIndex === 0 && hostelerIndex === 0 ? hostel.location : "",
+              floor: hostelerIndex === 0 ? floor : "",
+              room_number: room.number,
+              capacity: room.capacity,
+              hosteler_email: hosteler.email,
+              joined_at: hosteler.joinedAt,
+            });
+            totalRows++;
+          });
+        }
+      });
+    });
+    if (totalRows > 1) {
+      worksheet.mergeCells(`A${startRow}:A${startRow + totalRows - 1}`);
+      worksheet.mergeCells(`B${startRow}:B${startRow + totalRows - 1}`);
+      worksheet.mergeCells(`C${startRow}:C${startRow + totalRows - 1}`);
+    }
+    const filename = `${hostel.name.replace(/\s+/g, "_")}_data.xlsx`;
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    res.setHeader("Content-Disposition", `attachment; filename=${filename}`);
+
+    await workbook.xlsx.write(res);
+    res.end();
+  } catch (error) {
+    console.error("Error generating Excel file:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
+export {register,login,verify,finduser,addroomapi,findroom,findhostel,updatehostel,updateprofile,updateroom,announcement,complaints_reply,hostelfetch,measureMONGODB_time,measureRedisTime,lockroom,bookroom,leaveroom,downloadexcel}

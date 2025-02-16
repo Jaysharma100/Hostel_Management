@@ -1,5 +1,5 @@
 import express from 'express'
-import {register,login,verify, addroomapi, findroom, findhostel, updatehostel, updateprofile, finduser, updateroom, announcement, complaints_reply, hostelfetch, measureMONGODB_time, measureRedisTime, lockroom, bookroom, leaveroom } from '../controllers/Auth.js'
+import {register,login,verify, addroomapi, findroom, findhostel, updatehostel, updateprofile, finduser, updateroom, announcement, complaints_reply, hostelfetch, measureMONGODB_time, measureRedisTime, lockroom, bookroom, leaveroom, downloadexcel } from '../controllers/Auth.js'
 import upload from '../utils/multer.js'
 
 const Authroutes=express.Router()
@@ -22,5 +22,6 @@ Authroutes.post('/measure_REDIS_time',measureRedisTime)
 Authroutes.post('/lockroom',lockroom)
 Authroutes.post('/bookroom',bookroom)
 Authroutes.post('/leaveroom',leaveroom)
+Authroutes.get('/download-excel',downloadexcel)
 
 export default Authroutes
