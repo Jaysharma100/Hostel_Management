@@ -1,252 +1,494 @@
-.admin{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Admin Dashboard CSS */
+
+/* Main Container */
+.main {
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  font-family: 'Arial', sans-serif;
 }
 
-.edit{
-    display: flex;
-    height: 15vh;
-    width: 80vw;
-    border-radius: 3vh;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 4vh;
+.main.blurred {
+  filter: blur(5px);
+  pointer-events: none;
 }
 
-.gotoedit{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 10vh;
-    min-width: 30vw;
-    font-size: 100%;
-    border: 3px solid black;
-    border-radius: 5vh;
-    transition: width 0.2s ease, height 0.15s ease, border-radius 0.2s ease;
-    text-align: center;
-    background-color:aliceblue;
+/* Top Section */
+.admintop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.gotoedit:hover{
-    height: 12vh;
-    width: 32vw;
-    background-color: rgb(56, 77, 96);;
-    color: aliceblue;
-    border-top-left-radius: 0vh;
-    border-bottom-right-radius: 0vh;
+.profile {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-.logoutbtn{
-    position: fixed;
-    right: 3vh;
-    top: 2vh;
-    height: 7vh;
+.profile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* admin top css */
-.admintop{
-    display: flex;
-    width: 98vw;
-    align-items: center;
-    gap: 2vh;
+.avatarimg {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 15px;
+  border: 3px solid #007bff;
 }
 
-.profile{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 8vh;
-    padding: 1vh;
-    border:3px solid black;
-    border-top: none;
-    border-bottom-right-radius: 4vh;
-    border-bottom-left-radius: 4vh;
-    transition: width 0.2s ease, height 0.3s ease, border-radius 0.2s ease;
-    font-size: 3vh;
-    background-color: aliceblue;
+.editopt {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.profile img{
-    width: 8vh;
-    height: 8vh;
-    border-radius: 50%;
+.editopt span {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
 }
 
-.description{
-    margin-bottom: 3vh;
-    max-width: 85%;
-    min-width: 85%;
-    max-height: 25vh;
-    min-height: 15vh;
-    font-size: 3vh;
+.hostel_details {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
 }
 
-.editopt{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 60%;
-    margin: 2vh;
+/* Buttons */
+.edit2btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-.profile:hover{
-    height: 12vh;
-}
-.profeditbtn{
-    margin-top: 1vh;
+.edit2btn:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
 }
 
-.adminpopcustom{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.edit2btnext {
+  background: #28a745;
 }
 
-.popupdetails img{
-    width: 16vh;
-    height: 16vh;
-    border-radius: 50%;
+.edit2btnext:hover {
+  background: #1e7e34;
 }
 
-.avatarchange{
-    display: flex;
-    align-items: center;
-    gap: 2vh;
+.profeditbtn {
+  font-size: 12px;
+  padding: 8px 15px;
 }
 
-.avatarchange label{
-    display: flex;
-    height: 4vh;
-    width: 10vw;
-    /* background-color: rgb(206, 204, 204); */
-    border: 3px solid black;
-    border-radius: 3vh;
-    align-items: center;
-    justify-content: center;
+.logoutbtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #dc3545;
 }
 
-.addcolor{
-    background-color: rgb(20, 95, 157);
-    color: aliceblue;
+.logoutbtn:hover {
+  background: #c82333;
 }
 
-
-.hide{
-    display: none;
+.hide {
+  display: none;
 }
 
-.filter{
-    display: flex;
-    position: relative;
-    left: 2vw;
-    top: 2vh;
+/* Edit Section */
+.edit {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
-.dropdown{
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #fff;
-    text-align: center;
-  }
-  
-  .dropdown-item {
-    padding: 10px;
-    background-color: #f1f1f1;
-    /* margin: 5px; */
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 5vw;
-  }
-  
-  .dropdown-item:hover {
-    background-color: gray;
-    color: black;
-  }
-
-.details{
-    display: flex;
-    flex-direction: column;
-    border-top: 3px groove black;
-    padding: 2vh;
-    width: 95vw;
-    margin-top: 5vh;
-    height: 20vh;
+.gotoedit {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 200px;
 }
 
-.dropdown-header{
-    background-color: rgb(71, 144, 209);
-    color: aliceblue;
-    height: 8vh;
-    width: 15vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4vh;
+.gotoedit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 1);
 }
 
-.dropdown-content{
-    position: relative;
-    z-index: 3;
-    width: 25vw;
-    display: flex; 
+.gotoedit span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
 }
 
-.roomtop{
-    display: flex;
-    gap: 20%;
-    margin-bottom: 2vh;
-}
-.put{
-    margin-left: 5vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.rooms_admin{
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-    background-color: alice;
-}
-
-.hostelers{
-    margin-left: 5vh;
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-}
-
-.hosteler{
-    display: flex;
-    gap: 2vw;
-}
-
-.hosteler span{
-    background-color: rgb(71, 144, 209);
-    color: aliceblue;
-    padding: 1.3vh;
-    border-radius: 2vh;
+/* Download Section */
+.downloadit {
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 .download-btn {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s ease;
+  background: #17a2b8;
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
 }
 
 .download-btn:hover {
-    background-color: #0056b3;
+  background: #138496;
 }
 
-.downloadit{
-    margin-top: 3vh;
+/* Details Section */
+.details {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter/Dropdown */
+.filter {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.dropdown-header {
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-weight: 600;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdown-header:hover {
+  background: #e9ecef;
+  border-color: #007bff;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: #f8f9fa;
+}
+
+/* Rooms Section */
+.rooms_admin {
+  display: grid;
+  gap: 15px;
+}
+
+.room-item {
+  background: white;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.room-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.roomtop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.put {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.put span:first-child {
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+}
+
+.put span:last-child {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+}
+
+.hostelers {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #dee2e6;
+}
+
+.hosteler {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.hosteler span:first-child {
+  background: #007bff;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.hosteler span:last-child {
+  color: #495057;
+  font-size: 14px;
+}
+
+/* Popup Styles */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.popuptop {
+  background: #007bff;
+  color: white;
+  padding: 20px;
+  border-radius: 15px 15px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popuptop h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.extadd2btn {
+  background: #dc3545;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.popupdetails {
+  padding: 25px;
+}
+
+.popupdetails span {
+  display: block;
+  margin: 15px 0 5px 0;
+  font-weight: 600;
+  color: #333;
+}
+
+.popupdetails input,
+.popupdetails textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.popupdetails input:focus,
+.popupdetails textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.description {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.bottomsave {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.loading-gif {
+  width: 40px;
+  height: 40px;
+}
+
+/* Avatar Change Section */
+.avatarchange {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.adminpopcustom .avatarchange {
+  justify-content: center;
+}
+
+.adminpopcustom .avatarchange label {
+  background: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.adminpopcustom .avatarchange label:hover {
+  background: #1e7e34;
+}
+
+.adminpopcustom .avatarchange label.addcolor {
+  background: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main {
+    padding: 15px;
+  }
+  
+  .admintop {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .profile {
+    justify-content: center;
+  }
+  
+  .edit {
+    flex-direction: column;
+  }
+  
+  .gotoedit {
+    min-width: unset;
+  }
+  
+  .roomtop {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .put {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .popup {
+    width: 95%;
+    margin: 10px;
+  }
+  
+  .popupdetails {
+    padding: 20px;
+  }
+  
+  .logoutbtn {
+    position: static;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .avatarimg {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .editopt span {
+    font-size: 16px;
+  }
+  
+  .hostel_details {
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  .hosteler {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
